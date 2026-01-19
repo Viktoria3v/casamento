@@ -16,31 +16,41 @@
 <body>
   <a class="skip" href="#conteudo">Saltar para o conteúdo</a>
 
-  <header class="topbar">
-    <div class="wrap topbar__inner">
-      <div class="brand">D & V</div>
+  <header class="heroHeader">
+  <div class="heroBg" id="heroBg"></div>
 
-      <nav class="nav" aria-label="Navegação principal">
-        <a href="#detalhes">Detalhes</a>
-        <a href="#agenda">Agenda</a>
-        <a href="#local">Local</a>
-        <a href="#dresscode">Dress code</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+  <div class="heroOverlay"></div>
 
-      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav">
-        Menu
-      </button>
+  <div class="heroContent wrap">
+    <p class="eyebrow">Casamento</p>
+    <h1 class="title">Dmytro <span class="amp">&</span> Viktoriya</h1>
+
+    <p class="subtitle">
+      20 de junho de 2026<br>
+      Quinta do Pateo · Dois Portos · Torres Vedras
+    </p>
+
+    <div class="countdown">
+      <div class="pill">
+        <div class="pill__num" id="cdDays">—</div>
+        <div class="pill__lab">dias</div>
+      </div>
+      <div class="pill">
+        <div class="pill__num" id="cdHours">—</div>
+        <div class="pill__lab">horas</div>
+      </div>
+      <div class="pill">
+        <div class="pill__num" id="cdMinutes">—</div>
+        <div class="pill__lab">min</div>
+      </div>
+      <div class="pill">
+        <div class="pill__num" id="cdSeconds">—</div>
+        <div class="pill__lab">seg</div>
+      </div>
     </div>
+  </div>
+</header>
 
-    <div class="mobileNav wrap" id="mobileNav" hidden>
-      <a href="#detalhes">Detalhes</a>
-      <a href="#agenda">Agenda</a>
-      <a href="#local">Local</a>
-      <a href="#dresscode">Dress code</a>
-      <a href="#faq">FAQ</a>
-    </div>
-  </header>
 
   <main id="conteudo">
     <!-- HERO -->
