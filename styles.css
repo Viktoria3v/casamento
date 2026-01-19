@@ -405,6 +405,7 @@ a{ color:inherit; text-decoration:none; }
   line-height: 1;
   color: rgba(255,255,255,.96);
   margin: 0;
+  letter-spacing: .04em;
   text-shadow:
     0 10px 30px rgba(0,0,0,.45),
     0 2px 8px rgba(0,0,0,.35);
