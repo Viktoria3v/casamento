@@ -387,15 +387,17 @@ a{ color:inherit; text-decoration:none; }
 }
 
 /* bloco do título */
-.heroHeaderTop {
+.heroHeaderTop{
   position: absolute;
-  top: 50%;
+  top: 28px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 3;
   text-align: center;
   pointer-events: none;
+  width: min(1100px, 92vw);
 }
+
 
 /* título caligráfico */
 .scriptTitle {
@@ -425,4 +427,17 @@ a{ color:inherit; text-decoration:none; }
   letter-spacing: .18em;
   text-transform: uppercase;
   color: rgba(255,255,255,.75);
+}
+@keyframes titleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.scriptTitle{
+  animation: titleFloat 6.5s ease-in-out infinite;
+}
+
+/* respeita acessibilidade: se o utilizador preferir menos movimento */
+@media (prefers-reduced-motion: reduce){
+  .scriptTitle{ animation: none; }
 }
