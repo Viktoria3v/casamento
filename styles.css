@@ -1,8 +1,12 @@
+/* =========================
+   BASE
+========================= */
+
 :root{
   --bg:#0b0c10;
   --bg2:#0f1117;
   --card:rgba(255,255,255,.06);
-  --stroke:rgba(255,255,255,.10);
+  --stroke:rgba(255,255,255,.12);
   --txt:rgba(255,255,255,.92);
   --muted:rgba(255,255,255,.65);
   --shadow: 0 18px 60px rgba(0,0,0,.45);
@@ -10,12 +14,15 @@
 }
 
 *{ box-sizing:border-box; }
-html,body{ height:100%; }
-body{
+
+html, body{
   margin:0;
-  background: radial-gradient(1200px 700px at 20% 0%, rgba(255,255,255,.10), transparent 60%),
-              radial-gradient(900px 700px at 85% 10%, rgba(255,255,255,.06), transparent 60%),
-              linear-gradient(180deg, var(--bg), var(--bg2));
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  background: linear-gradient(180deg, var(--bg), var(--bg2));
   color:var(--txt);
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   line-height:1.5;
@@ -24,21 +31,23 @@ body{
 a{ color:inherit; text-decoration:none; }
 .wrap{ width:min(1100px, 92vw); margin:0 auto; }
 
+/* =========================
+   ACESSIBILIDADE
+========================= */
+
 .skip{
-  position:absolute; left:-999px; top:auto;
-  width:1px; height:1px; overflow:hidden;
+  position:absolute; left:-999px;
 }
 .skip:focus{
-  left:12px; top:12px; width:auto; height:auto;
+  left:12px; top:12px;
   padding:10px 12px;
   background:#000;
-  border:1px solid var(--stroke);
-  border-radius:10px;
+  border-radius:8px;
   z-index:9999;
 }
 
 /* =========================
-   HEADER EM PILHA (TÍTULO + MARQUEE)
+   HEADER (TÍTULO + MARQUEE)
 ========================= */
 
 .heroHeader{
@@ -46,373 +55,237 @@ a{ color:inherit; text-decoration:none; }
   flex-direction:column;
 }
 
-/* bloco do título (acima das imagens) */
+/* TÍTULO ACIMA DAS IMAGENS */
 .heroTitleTop{
-  padding: 28px 0 18px;
+  padding: 32px 0 20px;
   text-align:center;
-  background: linear-gradient(180deg, rgba(11,12,16,1), rgba(11,12,16,.96));
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: var(--bg);
+  border-bottom:1px solid var(--stroke);
 }
 
-/* título caligráfico */
 .scriptTitle{
   font-family: 'Great Vibes', cursive;
   font-size: clamp(3.2rem, 8vw, 5.2rem);
   font-weight: 400;
   margin: 0;
-  line-height: 1;
-  color: rgba(255,255,255,.96);
-  text-shadow:
-    0 10px 30px rgba(0,0,0,.35),
-    0 2px 8px rgba(0,0,0,.25);
-}
-
-/* animação subtil */
-@keyframes titleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-.scriptTitle{
-  animation: titleFloat 6.5s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce){
-  .scriptTitle{ animation:none; }
+  line-height:1;
 }
 
 .scriptAmp{
   margin: 0 .25em;
-  opacity: .75;
+  opacity:.75;
 }
 
-/* metadata */
 .scriptMeta{
-  margin: 10px 0 0;
-  font-size: .85rem;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.65);
+  margin-top:10px;
+  font-size:.85rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* ANIMAÇÃO MUITO SUBTIL */
+@keyframes titleFloat {
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-4px); }
+}
+
+.scriptTitle{
+  animation: titleFloat 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scriptTitle{ animation:none; }
 }
 
 /* =========================
-   MARQUEE (IMAGENS)
+   MARQUEE (IMAGENS NATURAIS)
 ========================= */
 
 .marquee{
-  position: relative;
-  overflow: hidden;
-  height: 70vh;
-  min-height: 420px;
-  background: #0b0c10;
+  position:relative;
+  overflow:hidden;
+  height:70vh;
+  min-height:420px;
+  background:#000;
 }
 
-/* o JS vai mexer neste elemento com transform */
+/* track animado pelo JS */
 .marqueeTrack{
   display:flex;
   align-items:center;
-  gap: 40px;
-  height: 100%;
-  will-change: transform;
-  transform: translateX(0px);
+  gap:40px;
+  height:100%;
+  will-change:transform;
 }
 
-/* IMAGENS MAIS VIVAS (anti-opaco) */
+/* IMAGENS — SEM FILTROS, SEM OPACITY */
 .marqueeTrack img{
-  height: 70vh;
-  max-height: 820px;
-  width: auto;
-  object-fit: cover;
-  border-radius: 24px;
-  flex-shrink: 0;
-  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  height:70vh;
+  max-height:820px;
+  width:auto;
+  object-fit:cover;
+  border-radius:22px;
+  flex-shrink:0;
 
-  /* deixa as fotos menos opacas */
-  opacity: 1;
-}
-
-/* Vinheta muito suave (opcional, não “mata” as fotos) */
-.marquee::after{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(80% 60% at 50% 40%, transparent 0%, rgba(0,0,0,.18) 70%, rgba(0,0,0,.30) 100%);
+  /* NADA disto altera a imagem */
+  opacity:1;
+  filter:none;
+  mix-blend-mode:normal;
 }
 
 /* =========================
-   TÍTULOS E TEXTO
-========================= */
-
-.eyebrow{
-  color:var(--muted);
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  font-size:.78rem;
-  margin:0 0 8px;
-}
-
-.title{
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.1rem, 5vw, 3.4rem);
-  margin:0 0 10px;
-}
-
-.amp{ opacity:.85; padding:0 .08em; }
-
-.subtitle{
-  color:var(--muted);
-  margin:0 0 18px;
-}
-
-.tiny{ font-size:.85rem; color:var(--muted); margin:14px 0 0; }
-.muted{ color:var(--muted); }
-
-/* =========================
-   BOTÕES
-========================= */
-
-.btn{
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.10);
-  color:var(--txt);
-  border-radius: 999px;
-  padding:12px 14px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow: 0 10px 26px rgba(0,0,0,.22);
-}
-.btn:hover{ background: rgba(255,255,255,.14); }
-.btn--ghost{
-  background: transparent;
-  border:1px solid var(--stroke);
-  box-shadow:none;
-}
-.btnRow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
-
-/* =========================
-   SECTION TITLE (2º header antes do hero)
-========================= */
-
-.sectionTitle{
-  padding: 22px 0 0;
-}
-.secondaryTitle{
-  margin: 0;
-  text-align: center;
-  font-family: "Playfair Display", serif;
-  font-weight: 600;
-  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
-  letter-spacing: .02em;
-}
-.secondaryAmp{
-  opacity: .75;
-  margin: 0 .2em;
-}
-
-/* =========================
-   HERO (INFORMAÇÃO PRINCIPAL)
+   HERO (INFO PRINCIPAL)
 ========================= */
 
 .hero{
-  position:relative;
   padding:48px 0 32px;
-  overflow:hidden;
 }
 
 .hero__grid{
   display:grid;
-  grid-template-columns: 1.05fr .95fr;
+  grid-template-columns:1.05fr .95fr;
   gap:26px;
-  align-items:stretch;
 }
 
-.hero__copy{ padding:18px 0 10px; }
+.hero__copy{ padding-top:10px; }
 
-.hero__actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:10px;
+.eyebrow{
+  font-size:.78rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:8px;
 }
 
+.subtitle{
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+/* COUNTDOWN */
 .countdown{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  margin: 18px 0 18px;
 }
 
 .pill{
   border:1px solid var(--stroke);
-  background: rgba(255,255,255,.04);
-  border-radius: 999px;
+  border-radius:999px;
   padding:10px 14px;
-  min-width: 92px;
+  min-width:92px;
   text-align:center;
-}
-.pill__num{ font-weight:700; font-size:1.2rem; }
-.pill__lab{ color:var(--muted); font-size:.78rem; margin-top:2px; }
-
-.hero__media{
-  border:1px solid var(--stroke);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--radius);
-  overflow:hidden;
-  box-shadow: var(--shadow);
-  min-height: 260px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  background:rgba(255,255,255,.03);
 }
 
-.hero__fade{
-  position:absolute; inset:auto 0 0 0;
-  height:120px;
-  background: linear-gradient(180deg, transparent, rgba(11,12,16,.92));
-  pointer-events:none;
+.pill__num{
+  font-size:1.2rem;
+  font-weight:700;
+}
+
+.pill__lab{
+  font-size:.78rem;
+  color:var(--muted);
 }
 
 /* =========================
    SEÇÕES
 ========================= */
 
-.section{ padding: 34px 0; }
+.section{ padding:34px 0; }
+
 .section h2{
   font-family:"Playfair Display", serif;
   font-size:1.9rem;
-  margin:0 0 14px;
+  margin-bottom:14px;
 }
 
 /* Cards */
 .cardGrid{
   display:grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
+
 .card{
   border:1px solid var(--stroke);
-  background: rgba(255,255,255,.04);
-  border-radius: var(--radius);
+  border-radius:var(--radius);
   padding:16px;
-  box-shadow: 0 16px 45px rgba(0,0,0,.20);
+  background:rgba(255,255,255,.04);
 }
-.card h3{ margin:0 0 8px; font-size:1rem; }
-.card p{ margin:0; color:var(--muted); }
 
 /* Timeline */
 .timeline{ display:grid; gap:10px; }
+
 .timeline__item{
   display:grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns:90px 1fr;
   gap:12px;
-  padding:14px 14px;
+  padding:14px;
   border:1px solid var(--stroke);
-  border-radius: var(--radius);
-  background: rgba(255,255,255,.03);
+  border-radius:var(--radius);
 }
+
 .timeline__time{
   font-weight:700;
-  color: rgba(255,255,255,.86);
 }
-.timeline__content h3{ margin:0 0 4px; }
-.timeline__content p{ margin:0; color:var(--muted); }
 
-/* 2 colunas */
+/* Local */
 .twoCol{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:1fr 1fr;
   gap:12px;
-  align-items:stretch;
 }
 
-.map{ padding:0; overflow:hidden; }
 .map iframe{
   width:100%;
-  height:100%;
-  min-height: 260px;
+  min-height:260px;
   border:0;
-  display:block;
-}
-
-/* Empty */
-.empty{
-  border:1px dashed rgba(255,255,255,.22);
-  border-radius: var(--radius);
-  padding:26px;
-  background: rgba(255,255,255,.02);
-  text-align:center;
 }
 
 /* FAQ */
 .faq{ display:grid; gap:10px; }
+
 .faq__item{
   border:1px solid var(--stroke);
-  border-radius: var(--radius);
-  background: rgba(255,255,255,.03);
-  padding: 12px 14px;
+  border-radius:var(--radius);
+  padding:12px 14px;
 }
+
 .faq__item summary{
   cursor:pointer;
   font-weight:600;
 }
-.faq__item p{ margin:10px 0 0; }
 
 /* Footer */
-.footer{ padding:28px 0 36px; border-top:1px solid var(--stroke); }
-.footer__inner{ display:flex; justify-content:center; }
+.footer{
+  padding:28px 0 36px;
+  border-top:1px solid var(--stroke);
+  text-align:center;
+}
 
 /* =========================
    RESPONSIVO
 ========================= */
 
-@media (max-width: 860px){
+@media (max-width:860px){
   .marquee{
-    height: 56vh;
-    min-height: 320px;
-  }
-
-  .marqueeTrack{
-    gap: 22px;
+    height:56vh;
+    min-height:320px;
   }
 
   .marqueeTrack img{
-    height: 56vh;
-    border-radius: 18px;
+    height:56vh;
+    border-radius:16px;
   }
 
-  .hero__grid{ grid-template-columns: 1fr; }
-  .hero__media{ min-height: 220px; }
-  .cardGrid{ grid-template-columns: 1fr; }
-  .twoCol{ grid-template-columns: 1fr; }
-}
-/* ===== PATCH: remover escurecimento e “opacidade” do marquee ===== */
+  .hero__grid{
+    grid-template-columns:1fr;
+  }
 
-/* 1) garante que NÃO há overlays a escurecer */
-.heroOverlay,
-.heroHeader::before,
-.heroHeader::after,
-.marquee::before,
-.marquee::after{
-  content: none !important;
-  display: none !important;
+  .cardGrid,
+  .twoCol{
+    grid-template-columns:1fr;
+  }
 }
-
-/* 2) garante que nenhum container está a aplicar filtros/opacidade */
-.heroHeader,
-.heroTitleTop,
-.marquee,
-.marqueeTrack{
-  filter: none !important;
-  opacity: 1 !important;
-  mix-blend-mode: normal !important;
-}
-
-/* 3) força as imagens a ficarem mais vivas */
-.marqueeTrack img{
-  opacity: 1 !important;
-}
-
-/* 4) remove qualquer “escurecimento” por background atrás */
-.marquee{
-  background: transparent !important;
-}
-
