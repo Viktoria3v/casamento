@@ -160,3 +160,22 @@ END:VCALENDAR`;
     URL.revokeObjectURL(url);
   });
 }
+/* =========================
+   INTRO ENVELOPE
+========================= */
+
+const openInvite = document.getElementById("openInvite");
+const introOverlay = document.getElementById("introOverlay");
+const envelope = document.querySelector(".envelope");
+
+if (openInvite) {
+  openInvite.addEventListener("click", () => {
+    envelope.classList.add("open");
+
+    setTimeout(() => {
+      introOverlay.classList.add("is-hidden");
+      document.body.style.overflow = "auto";
+    }, 1400);
+  });
+}
+
