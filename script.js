@@ -1,22 +1,12 @@
 /* =========================================================
-   CONFIGURAÇÃO GERAL
+   CONFIGURAÇÃO
 ========================================================= */
 
-// Data do casamento (hora pode ser ajustada mais tarde)
 const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-
-// Morada
 const ADDRESS_TEXT = "Quinta do Pateo, Dois Portos - Torres Vedras";
 
-// Imagens do header (fade suave)
-const HERO_IMAGES = [
-  "assets/hero-1.jpg",
-  "assets/hero-2.jpg",
-  "assets/hero-3.jpg"
-];
-
-// Intervalo de troca (ms)
-const HERO_INTERVAL = 6000;
+// velocidade do marquee (px por frame)
+const MARQUEE_SPEED = 0.35;
 
 
 /* =========================================================
@@ -46,7 +36,6 @@ function updateCountdown() {
   }
 
   const totalSeconds = Math.floor(diff / 1000);
-
   const days = Math.floor(totalSeconds / (24 * 3600));
   const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -63,28 +52,28 @@ setInterval(updateCountdown, 1000);
 
 
 /* =========================================================
-   HERO HEADER — BACKGROUND FADE SUAVE
+   MARQUEE HERO (movimento contínuo)
 ========================================================= */
 
-const heroBg = document.getElementById("heroBg");
-let heroIndex = 0;
+const track = document.getElementById("marqueeTrack");
+let offset = 0;
 
-// imagem inicial
-heroBg.style.backgroundImage = `url('${HERO_IMAGES[0]}')`;
+// duplicar conteúdo para loop infinito
+track.innerHTML += track.innerHTML;
 
-function changeHeroImage() {
-  heroBg.classList.add("fade-out");
+function animateMarquee() {
+  offset -= MARQUEE_SPEED;
 
-  setTimeout(() => {
-    heroIndex = (heroIndex + 1) % HERO_IMAGES.length;
-    heroBg.style.backgroundImage = `url('${HERO_IMAGES[heroIndex]}')`;
-    heroBg.classList.remove("fade-out");
-  }, 900); // metade da transição
+  // quando passa metade, reinicia sem salto
+  if (Math.abs(offset) >= track.scrollWidth / 2) {
+    offset = 0;
+  }
+
+  track.style.transform = `translateX(${offset}px)`;
+  requestAnimationFrame(animateMarquee);
 }
 
-if (HERO_IMAGES.length > 1) {
-  setInterval(changeHeroImage, HERO_INTERVAL);
-}
+animateMarquee();
 
 
 /* =========================================================
