@@ -164,18 +164,28 @@ END:VCALENDAR`;
    INTRO ENVELOPE
 ========================= */
 
-const openInvite = document.getElementById("openInvite");
-const introOverlay = document.getElementById("introOverlay");
-const envelope = document.querySelector(".envelope");
+document.addEventListener("DOMContentLoaded", () => {
+  const openInvite = document.getElementById("openInvite");
+  const introOverlay = document.getElementById("introOverlay");
+  const envelope = document.querySelector(".envelope");
 
-if (openInvite) {
+  if (!openInvite || !introOverlay || !envelope) {
+    console.warn("Envelope: elementos não encontrados", { openInvite, introOverlay, envelope });
+    return;
+  }
+
+  // garantia: o botão é clicável
+  openInvite.style.pointerEvents = "auto";
+
   openInvite.addEventListener("click", () => {
     envelope.classList.add("open");
+
+    // opcional: impedir duplo clique
+    openInvite.style.pointerEvents = "none";
 
     setTimeout(() => {
       introOverlay.classList.add("is-hidden");
       document.body.style.overflow = "auto";
     }, 1400);
   });
-}
-
+});
