@@ -9,45 +9,41 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tipografia: base + caligráfica para o título -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <a class="skip" href="#conteudo">Saltar para o conteúdo</a>
 
-  <header class="heroHeader">
-  <!-- MARQUEE DE IMAGENS -->
-  <div class="marquee">
-    <div class="marqueeTrack" id="marqueeTrack">
-      <img src="assets/hero-1.jpg" alt="Dmytro e Viktoriya">
-      <img src="assets/hero-2.jpg" alt="Dmytro e Viktoriya">
-      <img src="assets/hero-3.jpg" alt="Dmytro e Viktoriya">
-      <img src="assets/hero-4.jpg" alt="Dmytro e Viktoriya">
-      <img src="assets/hero-5.jpg" alt="Dmytro e Viktoriya">
-      <img src="assets/hero-6.jpg" alt="Dmytro e Viktoriya">
+  <!-- HEADER: título caligráfico + marquee -->
+  <header class="heroHeader" aria-label="Capa com fotografias">
+    <div class="heroHeaderTop wrap">
+      <h1 class="scriptTitle">Dmytro <span class="scriptAmp">&</span> Viktoriya</h1>
+      <p class="scriptMeta">20/06/2026 · Quinta do Pateo · Dois Portos · Torres Vedras</p>
     </div>
-  </div>
 
+    <div class="marquee" aria-hidden="true">
+      <div class="marqueeTrack" id="marqueeTrack">
+        <img src="assets/hero-1.jpg" alt="">
+        <img src="assets/hero-2.jpg" alt="">
+        <img src="assets/hero-3.jpg" alt="">
+      </div>
+    </div>
 
-    <!-- opcional -->
-    <!--
-    <button class="btn btn--ghost" id="addToCalendar">
-      Adicionar ao calendário
-    </button>
-    -->
-  </div>
-</header>
-
-
+    <div class="heroOverlay" aria-hidden="true"></div>
+  </header>
 
   <main id="conteudo">
-    <!-- HERO -->
-    <section class="hero" aria-label="Capa">
+
+    <!-- HERO (sem H1, só conteúdo + countdown) -->
+    <section class="hero" aria-label="Informação principal">
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <p class="eyebrow">Casamento</p>
-          <h1 class="title">Dmytro <span class="amp">&</span> Viktoriya</h1>
 
           <p class="subtitle">
             20/06/2026 • Quinta do Pateo • Dois Portos, Torres Vedras
@@ -74,7 +70,6 @@
 
           <div class="hero__actions">
             <a class="btn" href="#local">Ver localização</a>
-            <button class="btn btn--ghost" id="addToCalendar">Adicionar ao calendário</button>
           </div>
 
           <p class="tiny">
@@ -82,18 +77,10 @@
           </p>
         </div>
 
-        <!-- SLIDER lateral -->
-        <div class="hero__media" aria-label="Fotografias">
-          <div class="slider" id="slider" aria-roledescription="carousel">
-            <div class="slider__track" id="sliderTrack">
-              <!-- As imagens são definidas no script.js (podes alterar a lista lá) -->
-            </div>
-
-            <div class="slider__controls">
-              <button class="iconBtn" id="prevSlide" aria-label="Foto anterior">‹</button>
-              <div class="dots" id="dots" aria-label="Indicadores"></div>
-              <button class="iconBtn" id="nextSlide" aria-label="Foto seguinte">›</button>
-            </div>
+        <!-- Mantive o bloco de media (podes apagar se não quiseres esta área) -->
+        <div class="hero__media" aria-label="Fotografias (área de destaque)">
+          <div class="empty">
+            <p class="muted">—</p>
           </div>
         </div>
       </div>
@@ -101,30 +88,7 @@
       <div class="hero__fade" aria-hidden="true"></div>
     </section>
 
-    <!-- DETALHES -->
-    <section class="section" id="detalhes">
-      <div class="wrap">
-        <h2>Detalhes</h2>
-        <div class="cardGrid">
-          <article class="card">
-            <h3>Data</h3>
-            <p>20 de junho de 2026</p>
-          </article>
-
-          <article class="card">
-            <h3>Local</h3>
-            <p>Quinta do Pateo<br/>Dois Portos — Torres Vedras</p>
-          </article>
-
-          <article class="card">
-            <h3>Hora</h3>
-            <p><span class="muted">A confirmar.</span> (Podemos atualizar aqui quando fecharem horários.)</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- AGENDA -->
+    <!-- AGENDA (agora vem antes de Detalhes) -->
     <section class="section" id="agenda">
       <div class="wrap">
         <h2>Agenda</h2>
@@ -161,6 +125,29 @@
       </div>
     </section>
 
+    <!-- DETALHES -->
+    <section class="section" id="detalhes">
+      <div class="wrap">
+        <h2>Detalhes</h2>
+        <div class="cardGrid">
+          <article class="card">
+            <h3>Data</h3>
+            <p>20 de junho de 2026</p>
+          </article>
+
+          <article class="card">
+            <h3>Local</h3>
+            <p>Quinta do Pateo<br/>Dois Portos — Torres Vedras</p>
+          </article>
+
+          <article class="card">
+            <h3>Hora</h3>
+            <p><span class="muted">A confirmar.</span> (Podemos atualizar aqui quando fecharem horários.)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- LOCAL -->
     <section class="section" id="local">
       <div class="wrap">
@@ -171,7 +158,8 @@
             <h3>Quinta do Pateo</h3>
             <p>Dois Portos — Torres Vedras</p>
             <div class="btnRow">
-              <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Quinta%20do%20Pateo%2C%20Dois%20Portos%2C%20Torres%20Vedras">
+              <a class="btn" target="_blank" rel="noopener"
+                 href="https://www.google.com/maps/search/?api=1&query=Quinta%20do%20Pateo%2C%20Dois%20Portos%2C%20Torres%20Vedras">
                 Abrir no Google Maps
               </a>
               <button class="btn btn--ghost" id="copyAddress">Copiar morada</button>
@@ -200,16 +188,6 @@
             <strong>Sugerido:</strong> elegante / cocktail.<br/>
             <span class="muted">Detalhes finais (cores, etc.) podem ser atualizados mais perto da data.</span>
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALERIA (vazia por agora) -->
-    <section class="section" id="galeria" aria-label="Galeria">
-      <div class="wrap">
-        <h2>Galeria</h2>
-        <div class="empty">
-          <p class="muted">Em breve ✨</p>
         </div>
       </div>
     </section>
