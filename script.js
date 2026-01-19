@@ -6,7 +6,7 @@ const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
 const ADDRESS_TEXT = "Quinta do Pateo, Dois Portos - Torres Vedras";
 
 // velocidade do marquee (px por frame)
-const MARQUEE_SPEED = 0.35;
+const MARQUEE_SPEED = 0.55;
 
 
 /* =========================================================
