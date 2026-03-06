@@ -81,6 +81,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "auto";
   }
 
+  video.addEventListener("loadeddata", () => {
+    try {
+      video.currentTime = 0.01;
+    } catch (e) {
+      // ignora; o poster continua a servir de fallback
+    }
+  });
+
   async function startIntro() {
     if (started) return;
     started = true;
