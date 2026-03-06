@@ -1,233 +1,323 @@
-<!doctype html>
-<html lang="pt">
-<head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Dmytro & Viktoriya — 20/06/2026</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="styles.css">
-
-</head>
-
-<body>
-
-<!-- VIDEO INTRO -->
-
-<div class="introOverlay" id="introOverlay">
-
-<video
-id="introVideo"
-class="introVideo"
-playsinline
-muted
-preload="auto"
-poster="assets/intro-poster.jpeg"
->
-<source src="assets/intro-envelope.mp4" type="video/mp4">
-</video>
-
-<div id="openInvite" class="introTapLayer">
-<div class="videoHint">Toque para abrir</div>
-</div>
-
-</div>
-
-
-<header class="heroHeader">
-
-<div class="heroTitleTop">
-
-<h1 class="scriptTitle">
-Dmytro <span class="scriptAmp">&</span> Viktoriya
-</h1>
-
-<p class="scriptMeta">
-20 Junho 2026 • Quinta do Pateo • Torres Vedras
-</p>
-
-</div>
-
-
-<div class="marquee">
-
-<div class="marqueeTrack" id="marqueeTrack">
-
-<img src="assets/hero-1.jpg" alt="">
-<img src="assets/hero-2.jpg" alt="">
-<img src="assets/hero-3.jpg" alt="">
-
-</div>
-
-</div>
-
-</header>
-
-
-<main id="conteudo">
-
-<section class="hero">
-
-<div class="wrap hero__grid">
-
-<div>
-
-<p class="eyebrow">Casamento</p>
-
-<p class="subtitle">
-20/06/2026 • Quinta do Pateo • Dois Portos
-</p>
-
-<div class="countdown">
-
-<div class="pill">
-<div id="cdDays" class="pill__num">—</div>
-<div class="pill__lab">dias</div>
-</div>
-
-<div class="pill">
-<div id="cdHours" class="pill__num">—</div>
-<div class="pill__lab">horas</div>
-</div>
-
-<div class="pill">
-<div id="cdMinutes" class="pill__num">—</div>
-<div class="pill__lab">min</div>
-</div>
-
-<div class="pill">
-<div id="cdSeconds" class="pill__num">—</div>
-<div class="pill__lab">seg</div>
-</div>
-
-</div>
-
-<a class="btn" href="#local">Ver localização</a>
-
-</div>
-
-
-<div class="card">
-
-<h3>Estamos muito felizes por celebrar convosco</h3>
-
-<p class="muted">
-Guardem a data e venham celebrar connosco.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section">
-
-<div class="wrap">
-
-<h2>Agenda</h2>
-
-<div class="timeline">
-
-<div class="timeline__item">
-<div class="timeline__time">—</div>
-<div>
-<h3>Cerimónia</h3>
-<p class="muted">Hora a confirmar</p>
-</div>
-</div>
-
-<div class="timeline__item">
-<div class="timeline__time">—</div>
-<div>
-<h3>Cocktail</h3>
-<p class="muted">Hora a confirmar</p>
-</div>
-</div>
-
-<div class="timeline__item">
-<div class="timeline__time">—</div>
-<div>
-<h3>Jantar</h3>
-<p class="muted">Hora a confirmar</p>
-</div>
-</div>
-
-<div class="timeline__item">
-<div class="timeline__time">—</div>
-<div>
-<h3>Festa</h3>
-<p class="muted">Hora a confirmar</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section" id="local">
-
-<div class="wrap">
-
-<h2>Local</h2>
-
-<div class="twoCol">
-
-<div class="card">
-
-<h3>Quinta do Pateo</h3>
-
-<p class="muted">
-Dois Portos — Torres Vedras
-</p>
-
-<a class="btn" target="_blank"
-href="https://www.google.com/maps/search/?api=1&query=Quinta%20do%20Pateo%2C%20Torres%20Vedras">
-Abrir no Google Maps
-</a>
-
-</div>
-
-<div class="card map">
-
-<iframe
-src="https://www.google.com/maps?q=Quinta%20do%20Pateo%20Dois%20Portos%20Torres%20Vedras&output=embed"
-loading="lazy">
-</iframe>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<footer class="footer">
-
-<div class="wrap">
-
-<p class="muted">
-Dmytro & Viktoriya • 2026
-</p>
-
-</div>
-
-</footer>
-
-</main>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+:root{
+  --bg:#f3eadb;
+  --paper:#fffaf2;
+  --text:#2a241c;
+  --muted:#7d6f5d;
+  --stroke:rgba(90,70,40,.12);
+  --radius:18px;
+}
+
+*{ box-sizing:border-box; }
+
+html, body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+}
+
+.wrap{
+  width:min(1100px,92vw);
+  margin:auto;
+}
+
+/* INTRO VIDEO */
+
+.introOverlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  overflow:hidden;
+  background:#000;
+  transition:opacity .7s ease, visibility .7s ease;
+}
+
+.introOverlay.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.introVideo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  display:block;
+}
+
+.introTapLayer{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  cursor:pointer;
+  padding:0 0 11vh 0;
+}
+
+.videoHint{
+  display:block;
+  font-family:"Great Vibes", cursive;
+  font-size:clamp(2.8rem, 4.5vw, 4rem);
+  line-height:1;
+  color:#fff8ee;
+  opacity:1;
+  letter-spacing:.01em;
+  text-shadow:
+    0 2px 10px rgba(0,0,0,.28),
+    0 4px 22px rgba(0,0,0,.22);
+  -webkit-text-stroke: .2px rgba(255,248,238,.35);
+  transform:translateY(0);
+  transition:opacity .25s ease, transform .25s ease;
+  user-select:none;
+  pointer-events:none;
+}
+
+.introOverlay.is-playing .videoHint{
+  opacity:0;
+  transform:translateY(8px);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .introOverlay,
+  .videoHint{
+    transition:none;
+  }
+}
+
+/* MAIN APPEAR */
+
+main{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+
+body.invite-open main{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* HEADER */
+
+.heroTitleTop{
+  text-align:center;
+  padding:30px 0 10px;
+}
+
+.scriptTitle{
+  font-family:"Great Vibes", cursive;
+  font-size:clamp(3rem, 7vw, 4.8rem);
+  margin:0;
+  line-height:1;
+  color:var(--text);
+}
+
+.scriptAmp{
+  opacity:.75;
+  margin:0 .18em;
+}
+
+.scriptMeta{
+  color:var(--muted);
+  letter-spacing:.2em;
+  font-size:.8rem;
+  text-transform:uppercase;
+  margin-top:10px;
+}
+
+.marquee{
+  overflow:hidden;
+  height:60vh;
+  display:flex;
+  align-items:center;
+  padding:14px 0;
+}
+
+.marqueeTrack{
+  display:flex;
+  gap:30px;
+  will-change:transform;
+}
+
+.marqueeTrack img{
+  height:60vh;
+  width:auto;
+  display:block;
+  border-radius:22px;
+  box-shadow:0 20px 40px rgba(70,50,20,.16);
+}
+
+/* HERO */
+
+.hero{
+  padding:40px 0;
+}
+
+.hero__grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:.8rem;
+  color:var(--muted);
+}
+
+.subtitle{
+  color:var(--muted);
+  margin-bottom:20px;
+}
+
+/* COUNTDOWN */
+
+.countdown{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.pill{
+  background:var(--paper);
+  border:1px solid var(--stroke);
+  padding:10px 14px;
+  border-radius:999px;
+  text-align:center;
+  min-width:80px;
+  box-shadow:0 8px 18px rgba(90,70,40,.06);
+}
+
+.pill__num{
+  font-weight:700;
+}
+
+.pill__lab{
+  font-size:.8rem;
+  color:var(--muted);
+}
+
+/* BUTTON */
+
+.btn{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:999px;
+  background:var(--paper);
+  border:1px solid var(--stroke);
+  margin-top:12px;
+  box-shadow:0 10px 20px rgba(90,70,40,.08);
+  color:inherit;
+  text-decoration:none;
+}
+
+/* CARDS */
+
+.card{
+  background:var(--paper);
+  border-radius:var(--radius);
+  border:1px solid var(--stroke);
+  padding:16px;
+  box-shadow:0 8px 30px rgba(90,70,40,.06);
+}
+
+/* SECTIONS */
+
+.section{
+  padding:40px 0;
+}
+
+.section h2{
+  font-family:"Playfair Display", serif;
+  font-size:1.9rem;
+  margin:0 0 14px;
+  color:var(--text);
+}
+
+.timeline{
+  display:grid;
+  gap:10px;
+}
+
+.timeline__item{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:10px;
+  background:var(--paper);
+  border:1px solid var(--stroke);
+  padding:14px;
+  border-radius:var(--radius);
+  box-shadow:0 8px 24px rgba(90,70,40,.05);
+}
+
+.timeline__time{
+  font-weight:700;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+/* MAP */
+
+.twoCol{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.map iframe{
+  width:100%;
+  height:260px;
+  border:0;
+  border-radius:14px;
+}
+
+/* FOOTER */
+
+.footer{
+  border-top:1px solid var(--stroke);
+  padding:30px 0;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+  .hero__grid{
+    grid-template-columns:1fr;
+  }
+
+  .twoCol{
+    grid-template-columns:1fr;
+  }
+
+  .marquee{
+    height:50vh;
+  }
+
+  .marqueeTrack img{
+    height:50vh;
+  }
+
+  .introTapLayer{
+    padding-bottom:14vh;
+  }
+
+  .videoHint{
+    font-size:clamp(2.6rem, 8vw, 3.4rem);
+  }
+}
