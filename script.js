@@ -1,92 +1,127 @@
-const WEDDING_ISO="2026-06-20T12:00:00+01:00"
-const MARQUEE_SPEED=.55
-
+const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
+const MARQUEE_SPEED = 0.55;
 
 /* COUNTDOWN */
 
-const cdDays=document.getElementById("cdDays")
-const cdHours=document.getElementById("cdHours")
-const cdMinutes=document.getElementById("cdMinutes")
-const cdSeconds=document.getElementById("cdSeconds")
+const cdDays = document.getElementById("cdDays");
+const cdHours = document.getElementById("cdHours");
+const cdMinutes = document.getElementById("cdMinutes");
+const cdSeconds = document.getElementById("cdSeconds");
 
-function pad(n){return String(n).padStart(2,"0")}
-
-function updateCountdown(){
-
-const target=new Date(WEDDING_ISO).getTime()
-const now=Date.now()
-let diff=target-now
-
-if(diff<=0)return
-
-const s=Math.floor(diff/1000)
-
-const d=Math.floor(s/86400)
-const h=Math.floor((s%86400)/3600)
-const m=Math.floor((s%3600)/60)
-const sec=s%60
-
-cdDays.textContent=d
-cdHours.textContent=pad(h)
-cdMinutes.textContent=pad(m)
-cdSeconds.textContent=pad(sec)
-
+function pad(n) {
+  return String(n).padStart(2, "0");
 }
 
-updateCountdown()
-setInterval(updateCountdown,1000)
+function updateCountdown() {
+  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
 
+  const target = new Date(WEDDING_ISO).getTime();
+  const now = Date.now();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    cdDays.textContent = "0";
+    cdHours.textContent = "00";
+    cdMinutes.textContent = "00";
+    cdSeconds.textContent = "00";
+    return;
+  }
+
+  const s = Math.floor(diff / 1000);
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+
+  cdDays.textContent = String(d);
+  cdHours.textContent = pad(h);
+  cdMinutes.textContent = pad(m);
+  cdSeconds.textContent = pad(sec);
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
 /* MARQUEE */
 
-const track=document.getElementById("marqueeTrack")
-let offset=0
+const track = document.getElementById("marqueeTrack");
+let offset = 0;
 
-track.innerHTML+=track.innerHTML
+if (track) {
+  track.innerHTML += track.innerHTML;
 
-function animate(){
+  function animate() {
+    offset -= MARQUEE_SPEED;
 
-offset-=MARQUEE_SPEED
+    if (Math.abs(offset) >= track.scrollWidth / 2) {
+      offset = 0;
+    }
 
-if(Math.abs(offset)>=track.scrollWidth/2){
-offset=0
+    track.style.transform = `translateX(${offset}px)`;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 }
-
-track.style.transform=`translateX(${offset}px)`
-
-requestAnimationFrame(animate)
-
-}
-
-animate()
-
 
 /* INTRO VIDEO */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("introOverlay");
+  const button = document.getElementById("openInvite");
+  const video = document.getElementById("introVideo");
+  const main = document.getElementById("conteudo");
 
-const overlay=document.getElementById("introOverlay")
-const btn=document.getElementById("openInvite")
-const video=document.getElementById("introVideo")
+  document.body.classList.remove("invite-open");
+  document.body.style.overflow = "hidden";
 
-btn.addEventListener("click",async()=>{
+  if (!overlay || !button || !video) {
+    document.body.classList.add("invite-open");
+    document.body.style.overflow = "auto";
+    return;
+  }
 
-overlay.classList.add("playing")
+  let started = false;
 
-try{
-await video.play()
-}catch(e){
-overlay.classList.add("is-hidden")
-document.body.style.overflow="auto"
-}
+  function unlockSite() {
+    overlay.classList.add("is-hidden");
+    document.body.classList.add("invite-open");
+    document.body.style.overflow = "auto";
 
-})
+    if (main) {
+      main.focus({ preventScroll: true });
+    }
+  }
 
-video.addEventListener("ended",()=>{
+  // tenta mostrar o frame inicial real do vídeo
+  video.addEventListener("loadeddata", () => {
+    try {
+      if (video.readyState >= 2) {
+        video.currentTime = 0.01;
+      }
+    } catch (e) {
+      // ignora; o poster cobre este caso
+    }
+  });
 
-overlay.classList.add("is-hidden")
-document.body.style.overflow="auto"
+  async function startIntro() {
+    if (started) return;
+    started = true;
 
-})
+    overlay.classList.add("is-playing");
+    button.disabled = true;
 
-})
+    try {
+      video.currentTime = 0;
+      await video.play();
+    } catch (e) {
+      console.error("Erro ao reproduzir o vídeo:", e);
+      unlockSite();
+    }
+  }
+
+  button.addEventListener("click", startIntro);
+
+  video.addEventListener("ended", unlockSite);
+  video.addEventListener("error", unlockSite);
+});
