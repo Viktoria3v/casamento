@@ -1,92 +1,109 @@
-const WEDDING_ISO="2026-06-20T12:00:00+01:00"
-const MARQUEE_SPEED=.55
-
+const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
+const MARQUEE_SPEED = 0.55;
 
 /* COUNTDOWN */
 
-const cdDays=document.getElementById("cdDays")
-const cdHours=document.getElementById("cdHours")
-const cdMinutes=document.getElementById("cdMinutes")
-const cdSeconds=document.getElementById("cdSeconds")
+const cdDays = document.getElementById("cdDays");
+const cdHours = document.getElementById("cdHours");
+const cdMinutes = document.getElementById("cdMinutes");
+const cdSeconds = document.getElementById("cdSeconds");
 
-function pad(n){return String(n).padStart(2,"0")}
-
-function updateCountdown(){
-
-const target=new Date(WEDDING_ISO).getTime()
-const now=Date.now()
-let diff=target-now
-
-if(diff<=0)return
-
-const s=Math.floor(diff/1000)
-
-const d=Math.floor(s/86400)
-const h=Math.floor((s%86400)/3600)
-const m=Math.floor((s%3600)/60)
-const sec=s%60
-
-cdDays.textContent=d
-cdHours.textContent=pad(h)
-cdMinutes.textContent=pad(m)
-cdSeconds.textContent=pad(sec)
-
+function pad(n) {
+  return String(n).padStart(2, "0");
 }
 
-updateCountdown()
-setInterval(updateCountdown,1000)
+function updateCountdown() {
+  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
 
+  const target = new Date(WEDDING_ISO).getTime();
+  const now = Date.now();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    cdDays.textContent = "0";
+    cdHours.textContent = "00";
+    cdMinutes.textContent = "00";
+    cdSeconds.textContent = "00";
+    return;
+  }
+
+  const s = Math.floor(diff / 1000);
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+
+  cdDays.textContent = d;
+  cdHours.textContent = pad(h);
+  cdMinutes.textContent = pad(m);
+  cdSeconds.textContent = pad(sec);
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
 /* MARQUEE */
 
-const track=document.getElementById("marqueeTrack")
-let offset=0
+const track = document.getElementById("marqueeTrack");
+let offset = 0;
 
-track.innerHTML+=track.innerHTML
+if (track) {
+  track.innerHTML += track.innerHTML;
 
-function animate(){
+  function animate() {
+    offset -= MARQUEE_SPEED;
 
-offset-=MARQUEE_SPEED
+    if (Math.abs(offset) >= track.scrollWidth / 2) {
+      offset = 0;
+    }
 
-if(Math.abs(offset)>=track.scrollWidth/2){
-offset=0
+    track.style.transform = `translateX(${offset}px)`;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 }
-
-track.style.transform=`translateX(${offset}px)`
-
-requestAnimationFrame(animate)
-
-}
-
-animate()
-
 
 /* INTRO VIDEO */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("introOverlay");
+  const trigger = document.getElementById("openInvite");
+  const video = document.getElementById("introVideo");
 
-const overlay=document.getElementById("introOverlay")
-const trigger=document.getElementById("openInvite")
-const video=document.getElementById("introVideo")
+  if (!overlay || !trigger || !video) return;
 
-trigger.addEventListener("click",async()=>{
+  let started = false;
 
-overlay.classList.add("is-playing")
+  function unlockSite() {
+    overlay.classList.add("is-hidden");
+    document.body.classList.add("invite-open");
+    document.body.style.overflow = "auto";
+  }
 
-try{
-await video.play()
-}catch(e){
-overlay.classList.add("is-hidden")
-document.body.style.overflow="auto"
-}
+  async function startIntro() {
+    if (started) return;
+    started = true;
 
-})
+    overlay.classList.add("is-playing");
 
-video.addEventListener("ended",()=>{
+    try {
+      video.currentTime = 0;
+      await video.play();
+    } catch (err) {
+      unlockSite();
+    }
+  }
 
-overlay.classList.add("is-hidden")
-document.body.style.overflow="auto"
+  trigger.addEventListener("click", startIntro);
 
-})
+  trigger.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      startIntro();
+    }
+  });
 
-})
+  video.addEventListener("ended", unlockSite);
+  video.addEventListener("error", unlockSite);
+});
