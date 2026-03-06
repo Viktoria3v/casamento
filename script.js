@@ -1,191 +1,92 @@
-/* =========================================================
-   CONFIGURAÇÃO
-========================================================= */
-
-const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-const ADDRESS_TEXT = "Quinta do Pateo, Dois Portos - Torres Vedras";
-
-// velocidade do marquee (px por frame)
-const MARQUEE_SPEED = 0.55;
+const WEDDING_ISO="2026-06-20T12:00:00+01:00"
+const MARQUEE_SPEED=.55
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
+/* COUNTDOWN */
 
-const cdDays = document.getElementById("cdDays");
-const cdHours = document.getElementById("cdHours");
-const cdMinutes = document.getElementById("cdMinutes");
-const cdSeconds = document.getElementById("cdSeconds");
+const cdDays=document.getElementById("cdDays")
+const cdHours=document.getElementById("cdHours")
+const cdMinutes=document.getElementById("cdMinutes")
+const cdSeconds=document.getElementById("cdSeconds")
 
-function pad2(n) {
-  return String(n).padStart(2, "0");
+function pad(n){return String(n).padStart(2,"0")}
+
+function updateCountdown(){
+
+const target=new Date(WEDDING_ISO).getTime()
+const now=Date.now()
+let diff=target-now
+
+if(diff<=0)return
+
+const s=Math.floor(diff/1000)
+
+const d=Math.floor(s/86400)
+const h=Math.floor((s%86400)/3600)
+const m=Math.floor((s%3600)/60)
+const sec=s%60
+
+cdDays.textContent=d
+cdHours.textContent=pad(h)
+cdMinutes.textContent=pad(m)
+cdSeconds.textContent=pad(sec)
+
 }
 
-function updateCountdown() {
-  const target = new Date(WEDDING_ISO).getTime();
-  const now = Date.now();
-  let diff = target - now;
+updateCountdown()
+setInterval(updateCountdown,1000)
 
-  if (diff <= 0) {
-    cdDays.textContent = "0";
-    cdHours.textContent = "00";
-    cdMinutes.textContent = "00";
-    cdSeconds.textContent = "00";
-    return;
-  }
 
-  const totalSeconds = Math.floor(diff / 1000);
-  const days = Math.floor(totalSeconds / (24 * 3600));
-  const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+/* MARQUEE */
 
-  cdDays.textContent = days;
-  cdHours.textContent = pad2(hours);
-  cdMinutes.textContent = pad2(minutes);
-  cdSeconds.textContent = pad2(seconds);
+const track=document.getElementById("marqueeTrack")
+let offset=0
+
+track.innerHTML+=track.innerHTML
+
+function animate(){
+
+offset-=MARQUEE_SPEED
+
+if(Math.abs(offset)>=track.scrollWidth/2){
+offset=0
 }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+track.style.transform=`translateX(${offset}px)`
 
+requestAnimationFrame(animate)
 
-/* =========================================================
-   MARQUEE HERO (movimento contínuo)
-========================================================= */
-
-const track = document.getElementById("marqueeTrack");
-let offset = 0;
-
-// duplicar conteúdo para loop infinito
-track.innerHTML += track.innerHTML;
-
-function animateMarquee() {
-  offset -= MARQUEE_SPEED;
-
-  // quando passa metade, reinicia sem salto
-  if (Math.abs(offset) >= track.scrollWidth / 2) {
-    offset = 0;
-  }
-
-  track.style.transform = `translateX(${offset}px)`;
-  requestAnimationFrame(animateMarquee);
 }
 
-animateMarquee();
+animate()
 
 
-/* =========================================================
-   COPIAR MORADA
-========================================================= */
+/* INTRO VIDEO */
 
-const copyBtn = document.getElementById("copyAddress");
-const copyHint = document.getElementById("copyHint");
+document.addEventListener("DOMContentLoaded",()=>{
 
-if (copyBtn) {
-  copyBtn.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(ADDRESS_TEXT);
-      copyHint.textContent = "Morada copiada ✅";
-    } catch {
-      const ta = document.createElement("textarea");
-      ta.value = ADDRESS_TEXT;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      copyHint.textContent = "Morada copiada ✅";
-    }
+const overlay=document.getElementById("introOverlay")
+const btn=document.getElementById("openInvite")
+const video=document.getElementById("introVideo")
 
-    setTimeout(() => {
-      copyHint.textContent = "";
-    }, 2500);
-  });
+btn.addEventListener("click",async()=>{
+
+overlay.classList.add("playing")
+
+try{
+await video.play()
+}catch(e){
+overlay.classList.add("is-hidden")
+document.body.style.overflow="auto"
 }
 
+})
 
-/* =========================================================
-   ADICIONAR AO CALENDÁRIO (.ics)
-========================================================= */
+video.addEventListener("ended",()=>{
 
-const addToCalendarBtn = document.getElementById("addToCalendar");
+overlay.classList.add("is-hidden")
+document.body.style.overflow="auto"
 
-function toICSDate(d) {
-  const pad = (n) => String(n).padStart(2, "0");
-  return (
-    d.getUTCFullYear() +
-    pad(d.getUTCMonth() + 1) +
-    pad(d.getUTCDate()) + "T" +
-    pad(d.getUTCHours()) +
-    pad(d.getUTCMinutes()) +
-    pad(d.getUTCSeconds()) + "Z"
-  );
-}
+})
 
-if (addToCalendarBtn) {
-  addToCalendarBtn.addEventListener("click", () => {
-    const start = new Date(WEDDING_ISO);
-    const end = new Date(start.getTime() + 8 * 60 * 60 * 1000);
-
-    const uid = `dmytro-viktoriya-${Date.now()}@invite`;
-
-    const ics =
-`BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//DmytroViktoriya//Wedding Invite//PT
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-BEGIN:VEVENT
-UID:${uid}
-DTSTAMP:${toICSDate(new Date())}
-DTSTART:${toICSDate(start)}
-DTEND:${toICSDate(end)}
-SUMMARY:Casamento — Dmytro & Viktoriya
-LOCATION:${ADDRESS_TEXT}
-DESCRIPTION:Quinta do Pateo, Dois Portos - Torres Vedras
-END:VEVENT
-END:VCALENDAR`;
-
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Dmytro-Viktoriya-Casamento.ics";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    URL.revokeObjectURL(url);
-  });
-}
-/* =========================
-   INTRO ENVELOPE
-========================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  const openInvite = document.getElementById("openInvite");
-  const introOverlay = document.getElementById("introOverlay");
-  const envelope = document.querySelector(".envelope");
-
-  if (!openInvite || !introOverlay || !envelope) {
-    console.warn("Envelope: elementos não encontrados", { openInvite, introOverlay, envelope });
-    return;
-  }
-
-  // garantia: o botão é clicável
-  openInvite.style.pointerEvents = "auto";
-
-  openInvite.addEventListener("click", () => {
-    envelope.classList.add("open");
-
-    // opcional: impedir duplo clique
-    openInvite.style.pointerEvents = "none";
-
-    setTimeout(() => {
-      introOverlay.classList.add("is-hidden");
-      document.body.style.overflow = "auto";
-    }, 1400);
-  });
-});
+})
