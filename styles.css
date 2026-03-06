@@ -1,6 +1,6 @@
 :root{
-  --bg:#f3eadb;
-  --paper:#fffaf2;
+  --bg:#f1e6d2;
+  --paper:#fff9f0;
   --text:#2a241c;
   --muted:#7d6f5d;
   --stroke:rgba(90,70,40,.12);
@@ -52,35 +52,41 @@ body{
   object-fit:cover;
   z-index:1;
   display:block;
+  pointer-events:none;
 }
 
 .introTapLayer{
   position:absolute;
   inset:0;
-  z-index:2;
+  z-index:3;
   display:flex;
   align-items:flex-end;
   justify-content:center;
   cursor:pointer;
-  padding:0 0 11vh 0;
+  padding:0 0 16vh 0;
+  background:transparent;
+  border:0;
+  appearance:none;
+  -webkit-appearance:none;
 }
 
 .videoHint{
   display:block;
   font-family:"Great Vibes", cursive;
-  font-size:clamp(2.8rem, 4.5vw, 4rem);
-  line-height:1;
-  color:#fff8ee;
-  opacity:1;
+  font-size:clamp(3rem, 4.8vw, 4.3rem);
+  font-weight:400;
+  line-height:1.18;
+  color:#fff7ea;
   letter-spacing:.01em;
   text-shadow:
-    0 2px 10px rgba(0,0,0,.28),
-    0 4px 22px rgba(0,0,0,.22);
-  -webkit-text-stroke: .2px rgba(255,248,238,.35);
+    0 2px 10px rgba(0,0,0,.32),
+    0 6px 24px rgba(0,0,0,.22);
+  -webkit-text-stroke:.25px rgba(255,247,234,.5);
+  opacity:1;
   transform:translateY(0);
   transition:opacity .25s ease, transform .25s ease;
-  user-select:none;
   pointer-events:none;
+  padding:0 .2em;
 }
 
 .introOverlay.is-playing .videoHint{
@@ -141,7 +147,6 @@ body.invite-open main{
   height:60vh;
   display:flex;
   align-items:center;
-  padding:14px 0;
 }
 
 .marqueeTrack{
@@ -314,10 +319,11 @@ body.invite-open main{
   }
 
   .introTapLayer{
-    padding-bottom:14vh;
+    padding-bottom:18vh;
   }
 
   .videoHint{
-    font-size:clamp(2.6rem, 8vw, 3.4rem);
+    font-size:clamp(2.8rem, 9vw, 3.6rem);
+    line-height:1.2;
   }
 }
