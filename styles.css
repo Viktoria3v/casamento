@@ -1,6 +1,6 @@
 :root{
-  --bg:#f1e6d2;
-  --paper:#fff9f0;
+  --bg:#f3eadb;
+  --paper:#fffaf2;
   --text:#2a241c;
   --muted:#7d6f5d;
   --stroke:rgba(90,70,40,.12);
@@ -53,6 +53,7 @@ body{
   z-index:1;
   display:block;
   pointer-events:none;
+  background:#000;
 }
 
 .introTapLayer{
@@ -63,7 +64,7 @@ body{
   align-items:flex-end;
   justify-content:center;
   cursor:pointer;
-  padding:0 0 16vh 0;
+  padding:0 0 14vh 0;
   background:transparent;
   border:0;
   appearance:none;
@@ -87,6 +88,7 @@ body{
   transition:opacity .25s ease, transform .25s ease;
   pointer-events:none;
   padding:0 .2em;
+  user-select:none;
 }
 
 .introOverlay.is-playing .videoHint{
@@ -147,6 +149,7 @@ body.invite-open main{
   height:60vh;
   display:flex;
   align-items:center;
+  padding:14px 0;
 }
 
 .marqueeTrack{
@@ -319,7 +322,7 @@ body.invite-open main{
   }
 
   .introTapLayer{
-    padding-bottom:18vh;
+    padding-bottom:16vh;
   }
 
   .videoHint{
