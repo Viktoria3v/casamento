@@ -1,117 +1,60 @@
-const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-const MARQUEE_SPEED = 0.55;
+const track=document.getElementById("marqueeTrack")
+let offset=0
 
-/* COUNTDOWN */
+track.innerHTML+=track.innerHTML
 
-const cdDays = document.getElementById("cdDays");
-const cdHours = document.getElementById("cdHours");
-const cdMinutes = document.getElementById("cdMinutes");
-const cdSeconds = document.getElementById("cdSeconds");
+function animate(){
 
-function pad(n) {
-  return String(n).padStart(2, "0");
+offset-=0.5
+
+if(Math.abs(offset)>=track.scrollWidth/2){
+offset=0
 }
 
-function updateCountdown() {
-  if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
+track.style.transform=`translateX(${offset}px)`
 
-  const target = new Date(WEDDING_ISO).getTime();
-  const now = Date.now();
-  const diff = target - now;
+requestAnimationFrame(animate)
 
-  if (diff <= 0) {
-    cdDays.textContent = "0";
-    cdHours.textContent = "00";
-    cdMinutes.textContent = "00";
-    cdSeconds.textContent = "00";
-    return;
-  }
-
-  const s = Math.floor(diff / 1000);
-  const d = Math.floor(s / 86400);
-  const h = Math.floor((s % 86400) / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
-
-  cdDays.textContent = d;
-  cdHours.textContent = pad(h);
-  cdMinutes.textContent = pad(m);
-  cdSeconds.textContent = pad(sec);
 }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+animate()
 
-/* MARQUEE */
 
-const track = document.getElementById("marqueeTrack");
-let offset = 0;
-
-if (track) {
-  track.innerHTML += track.innerHTML;
-
-  function animate() {
-    offset -= MARQUEE_SPEED;
-
-    if (Math.abs(offset) >= track.scrollWidth / 2) {
-      offset = 0;
-    }
-
-    track.style.transform = `translateX(${offset}px)`;
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-}
 
 /* INTRO VIDEO */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const overlay = document.getElementById("introOverlay");
-  const trigger = document.getElementById("openInvite");
-  const video = document.getElementById("introVideo");
+document.addEventListener("DOMContentLoaded",()=>{
 
-  if (!overlay || !trigger || !video) return;
+const overlay=document.getElementById("introOverlay")
+const trigger=document.getElementById("openInvite")
+const video=document.getElementById("introVideo")
 
-  let started = false;
+video.addEventListener("loadeddata",()=>{
 
-  function unlockSite() {
-    overlay.classList.add("is-hidden");
-    document.body.classList.add("invite-open");
-    document.body.style.overflow = "auto";
-  }
+try{
+video.currentTime=0.01
+}catch{}
 
-  video.addEventListener("loadeddata", () => {
-    try {
-      video.currentTime = 0.01;
-    } catch (e) {
-      // ignora; o poster continua a servir de fallback
-    }
-  });
+})
 
-  async function startIntro() {
-    if (started) return;
-    started = true;
+trigger.addEventListener("click",async()=>{
 
-    overlay.classList.add("is-playing");
+overlay.classList.add("is-playing")
 
-    try {
-      video.currentTime = 0;
-      await video.play();
-    } catch (err) {
-      unlockSite();
-    }
-  }
+try{
+await video.play()
+}catch{
+overlay.classList.add("is-hidden")
+document.body.style.overflow="auto"
+}
 
-  trigger.addEventListener("click", startIntro);
+})
 
-  trigger.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      startIntro();
-    }
-  });
+video.addEventListener("ended",()=>{
 
-  video.addEventListener("ended", unlockSite);
-  video.addEventListener("error", unlockSite);
-});
+overlay.classList.add("is-hidden")
+document.body.style.overflow="auto"
+
+})
+
+})
