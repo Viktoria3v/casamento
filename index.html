@@ -1,174 +1,279 @@
 <!doctype html>
 <html lang="pt">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dmytro & Viktoriya — 20/06/2026</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<title>Dmytro & Viktoriya — 20/06/2026</title>
 
-  <link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
 
-  <div class="introOverlay" id="introOverlay">
-    <video
-      id="introVideo"
-      class="introVideo"
-      playsinline
-      webkit-playsinline
-      muted
-      preload="auto"
-      poster="assets/intro-poster.jpg"
-    >
-      <source src="assets/intro-envelope.mp4" type="video/mp4">
-    </video>
 
-    <button id="openInvite" class="introTapLayer" type="button" aria-label="Abrir convite">
-      <span class="videoHint">Toque para abrir</span>
-    </button>
-  </div>
+<!-- INTRO VIDEO -->
 
-  <header class="heroHeader">
-    <div class="heroTitleTop">
-      <h1 class="scriptTitle">
-        Dmytro <span class="scriptAmp">&</span> Viktoriya
-      </h1>
+<div class="introOverlay" id="introOverlay">
 
-      <p class="scriptMeta">
-        20 Junho 2026 • Quinta do Pateo • Torres Vedras
-      </p>
-    </div>
+<video
+id="introVideo"
+class="introVideo"
+playsinline
+webkit-playsinline
+muted
+preload="auto"
+poster="assets/intro-poster.jpg"
+>
 
-    <div class="marquee">
-      <div class="marqueeTrack" id="marqueeTrack">
-        <img src="assets/hero-1.jpg" alt="">
-        <img src="assets/hero-2.jpg" alt="">
-        <img src="assets/hero-3.jpg" alt="">
-      </div>
-    </div>
-  </header>
+<source src="assets/intro-envelope.mp4" type="video/mp4">
 
-  <main id="conteudo">
-    <section class="hero">
-      <div class="wrap hero__grid">
-        <div>
-          <p class="eyebrow">Casamento</p>
+</video>
 
-          <p class="subtitle">
-            20/06/2026 • Quinta do Pateo • Dois Portos
-          </p>
+<button id="openInvite" class="introTapLayer">
 
-          <div class="countdown">
-            <div class="pill">
-              <div id="cdDays" class="pill__num">—</div>
-              <div class="pill__lab">dias</div>
-            </div>
+<span class="videoHint">
+Toque para abrir
+</span>
 
-            <div class="pill">
-              <div id="cdHours" class="pill__num">—</div>
-              <div class="pill__lab">horas</div>
-            </div>
+</button>
 
-            <div class="pill">
-              <div id="cdMinutes" class="pill__num">—</div>
-              <div class="pill__lab">min</div>
-            </div>
+</div>
 
-            <div class="pill">
-              <div id="cdSeconds" class="pill__num">—</div>
-              <div class="pill__lab">seg</div>
-            </div>
-          </div>
 
-          <a class="btn" href="#local">Ver localização</a>
-        </div>
 
-        <div class="card">
-          <h3>Estamos muito felizes por celebrar convosco</h3>
-          <p class="muted">
-            Guardem a data e venham celebrar connosco.
-          </p>
-        </div>
-      </div>
-    </section>
+<header class="heroHeader">
 
-    <section class="section">
-      <div class="wrap">
-        <h2>Agenda</h2>
+<div class="heroTitleTop">
 
-        <div class="timeline">
-          <div class="timeline__item">
-            <div class="timeline__time">—</div>
-            <div>
-              <h3>Cerimónia</h3>
-              <p class="muted">Hora a confirmar</p>
-            </div>
-          </div>
+<h1 class="scriptTitle">
+Dmytro <span class="scriptAmp">&</span> Viktoriya
+</h1>
 
-          <div class="timeline__item">
-            <div class="timeline__time">—</div>
-            <div>
-              <h3>Cocktail</h3>
-              <p class="muted">Hora a confirmar</p>
-            </div>
-          </div>
+<p class="scriptMeta">
+20 Junho 2026 • Quinta do Pateo • Torres Vedras
+</p>
 
-          <div class="timeline__item">
-            <div class="timeline__time">—</div>
-            <div>
-              <h3>Jantar</h3>
-              <p class="muted">Hora a confirmar</p>
-            </div>
-          </div>
+</div>
 
-          <div class="timeline__item">
-            <div class="timeline__time">—</div>
-            <div>
-              <h3>Festa</h3>
-              <p class="muted">Hora a confirmar</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section" id="local">
-      <div class="wrap">
-        <h2>Local</h2>
+<div class="marquee">
 
-        <div class="twoCol">
-          <div class="card">
-            <h3>Quinta do Pateo</h3>
-            <p class="muted">Dois Portos — Torres Vedras</p>
+<div class="marqueeTrack" id="marqueeTrack">
 
-            <a class="btn" target="_blank" rel="noopener"
-               href="https://www.google.com/maps/search/?api=1&query=Quinta%20do%20Pateo%2C%20Torres%20Vedras">
-              Abrir no Google Maps
-            </a>
-          </div>
+<img src="assets/hero-1.jpg">
+<img src="assets/hero-2.jpg">
+<img src="assets/hero-3.jpg">
 
-          <div class="card map">
-            <iframe
-              src="https://www.google.com/maps?q=Quinta%20do%20Pateo%20Dois%20Portos%20Torres%20Vedras&output=embed"
-              loading="lazy"
-              title="Mapa Quinta do Pateo">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <footer class="footer">
-      <div class="wrap">
-        <p class="muted">Dmytro & Viktoriya • 2026</p>
-      </div>
-    </footer>
-  </main>
+</div>
 
-  <script src="script.js"></script>
+</header>
+
+
+
+<main id="conteudo">
+
+
+<section class="hero">
+
+<div class="wrap hero__grid">
+
+<div>
+
+<p class="eyebrow">Casamento</p>
+
+<p class="subtitle">
+20/06/2026 • Quinta do Pateo • Dois Portos
+</p>
+
+
+<div class="countdown">
+
+<div class="pill">
+<div id="cdDays" class="pill__num">—</div>
+<div class="pill__lab">dias</div>
+</div>
+
+<div class="pill">
+<div id="cdHours" class="pill__num">—</div>
+<div class="pill__lab">horas</div>
+</div>
+
+<div class="pill">
+<div id="cdMinutes" class="pill__num">—</div>
+<div class="pill__lab">min</div>
+</div>
+
+<div class="pill">
+<div id="cdSeconds" class="pill__num">—</div>
+<div class="pill__lab">seg</div>
+</div>
+
+</div>
+
+<a class="btn" href="#local">
+Ver localização
+</a>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Estamos muito felizes por celebrar convosco
+</h3>
+
+<p class="muted">
+Guardem a data e venham celebrar connosco.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="section agendaSection">
+
+<div class="wrap agendaGrid">
+
+
+<div>
+
+<h2>Agenda</h2>
+
+
+<div class="timeline">
+
+<div class="timeline__item">
+<div class="timeline__time">—</div>
+<div>
+<h3>Cerimónia</h3>
+<p class="muted">Hora a confirmar</p>
+</div>
+</div>
+
+<div class="timeline__item">
+<div class="timeline__time">—</div>
+<div>
+<h3>Cocktail</h3>
+<p class="muted">Hora a confirmar</p>
+</div>
+</div>
+
+<div class="timeline__item">
+<div class="timeline__time">—</div>
+<div>
+<h3>Jantar</h3>
+<p class="muted">Hora a confirmar</p>
+</div>
+</div>
+
+<div class="timeline__item">
+<div class="timeline__time">—</div>
+<div>
+<h3>Festa</h3>
+<p class="muted">Hora a confirmar</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="agendaImage">
+
+<img src="assets/igreja-lateral.jfif">
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<section class="section" id="local">
+
+<div class="wrap">
+
+<h2>Local</h2>
+
+
+<div class="twoCol">
+
+<div class="card">
+
+<h3>Quinta do Pateo</h3>
+
+<p class="muted">
+Dois Portos — Torres Vedras
+</p>
+
+<a class="btn"
+target="_blank"
+href="https://www.google.com/maps/search/?api=1&query=Quinta%20do%20Pateo%2C%20Torres%20Vedras">
+
+Abrir no Google Maps
+
+</a>
+
+</div>
+
+
+<div class="card map">
+
+<iframe
+src="https://www.google.com/maps?q=Quinta%20do%20Pateo%20Dois%20Portos%20Torres%20Vedras&output=embed"
+loading="lazy">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<footer class="footer">
+
+<img class="footerChurch" src="assets/igreja-escada.jfif">
+
+
+<div class="wrap">
+
+<p class="muted">
+Dmytro & Viktoriya • 2026
+</p>
+
+</div>
+
+</footer>
+
+
+
+</main>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
