@@ -227,7 +227,46 @@ opacity:.95;
 filter:contrast(1.05);
 }
 
+.timeline{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
 
+.timeline__item{
+display:grid;
+grid-template-columns:60px 1fr;
+gap:16px;
+align-items:center;
+padding:14px;
+background:white;
+border:1px solid var(--stroke);
+border-radius:var(--radius);
+}
+
+.timelineIcon{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.timelineIcon img{
+width:36px;
+height:36px;
+object-fit:contain;
+}
+
+.timelineContent h3{
+margin:2px 0 0 0;
+font-size:1rem;
+font-weight:500;
+}
+
+.timelineTime{
+font-weight:600;
+font-size:.9rem;
+color:var(--muted);
+}
 
 /* RESPONSIVE */
 
