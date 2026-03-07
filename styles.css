@@ -205,6 +205,9 @@ border:0;
 border-radius:14px;
 }
 
+.section:last-of-type{
+  padding-bottom: 20px;
+}
 
 
 /* FOOTER */
