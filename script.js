@@ -64,21 +64,47 @@ if (track) {
   animate();
 }
 
-/* INTRO VIDEO */
+/* INTRO VIDEO + MUSIC */
 
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("introOverlay");
   const trigger = document.getElementById("openInvite");
   const video = document.getElementById("introVideo");
+  const music = document.getElementById("bgMusic");
 
   if (!overlay || !trigger || !video) return;
 
   let started = false;
 
+  function startMusic() {
+    if (!music) return;
+
+    try {
+      music.currentTime = 0;
+      music.volume = 0;
+      music.play().then(() => {
+        let v = 0;
+        const fade = setInterval(() => {
+          v += 0.05;
+          music.volume = Math.min(v, 0.6);
+
+          if (v >= 0.6) {
+            clearInterval(fade);
+          }
+        }, 200);
+      }).catch(() => {
+        // ignore
+      });
+    } catch (e) {
+      // ignore
+    }
+  }
+
   function unlockSite() {
     overlay.classList.add("is-hidden");
     document.body.classList.add("invite-open");
     document.body.style.overflow = "auto";
+    startMusic();
   }
 
   video.addEventListener("loadeddata", () => {
