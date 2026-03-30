@@ -207,13 +207,13 @@ body.invite-open main{
 
 /* wrapper visual de cada imagem pelo próprio img */
 .marqueeTrack img{
-  height:68vh;
+  height:74vh;
   width:auto;
   border-radius:28px;
   box-shadow:0 24px 46px rgba(177,146,121,.16);
   filter:brightness(1.04) saturate(1.05);
-  -webkit-mask-image: radial-gradient(circle at center, #000 64%, rgba(0,0,0,.9) 76%, rgba(0,0,0,.35) 90%, transparent 100%);
-  mask-image: radial-gradient(circle at center, #000 64%, rgba(0,0,0,.9) 76%, rgba(0,0,0,.35) 90%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 66%, rgba(0,0,0,.92) 78%, rgba(0,0,0,.45) 90%, transparent 100%);
+  mask-image: radial-gradient(circle at center, #000 66%, rgba(0,0,0,.92) 78%, rgba(0,0,0,.45) 90%, transparent 100%);
 }
 
 /* TYPOGRAPHY */
@@ -368,8 +368,8 @@ p,
   width:100%;
   filter:brightness(1.03) saturate(1.04);
   box-shadow:0 22px 44px rgba(177,146,121,.16);
-  -webkit-mask-image: radial-gradient(circle at center, #000 66%, rgba(0,0,0,.88) 80%, rgba(0,0,0,.28) 92%, transparent 100%);
-  mask-image: radial-gradient(circle at center, #000 66%, rgba(0,0,0,.88) 80%, rgba(0,0,0,.28) 92%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 52%, rgba(0,0,0,.82) 68%, rgba(0,0,0,.36) 84%, transparent 100%);
+  mask-image: radial-gradient(circle at center, #000 52%, rgba(0,0,0,.82) 68%, rgba(0,0,0,.36) 84%, transparent 100%);
 }
 
 /* TIMELINE */
@@ -494,8 +494,8 @@ p,
   transform:none;
   pointer-events:none;
   box-shadow:0 22px 44px rgba(177,146,121,.10);
-  -webkit-mask-image: radial-gradient(circle at center, #000 66%, rgba(0,0,0,.88) 80%, rgba(0,0,0,.28) 92%, transparent 100%);
-  mask-image: radial-gradient(circle at center, #000 66%, rgba(0,0,0,.88) 80%, rgba(0,0,0,.28) 92%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 50%, rgba(0,0,0,.80) 66%, rgba(0,0,0,.34) 82%, transparent 100%);
+  mask-image: radial-gradient(circle at center, #000 50%, rgba(0,0,0,.80) 66%, rgba(0,0,0,.34) 82%, transparent 100%);
 }
 
 /* RESPONSIVE */
@@ -533,7 +533,7 @@ p,
   }
 
   .marqueeTrack img{
-    height:58vh;
+  height:58vh;
   }
 
   .introTapLayer{
@@ -556,15 +556,21 @@ p,
     font-size:1.16rem;
   }
 
-  .timelineIcon{
-    width:76px;
-    height:76px;
-  }
+.timelineIcon img{
+  width:58px;
+  height:58px;
+  -webkit-mask-image: radial-gradient(circle at center, #000 58%, rgba(0,0,0,.86) 74%, rgba(0,0,0,.34) 88%, transparent 100%);
+  mask-image: radial-gradient(circle at center, #000 58%, rgba(0,0,0,.86) 74%, rgba(0,0,0,.34) 88%, transparent 100%);
+}
 
-  .timelineIcon img{
-    width:58px;
-    height:58px;
-  }
+.timelineIcon img{
+  width:72px;
+  height:72px;
+  object-fit:contain;
+  display:block;
+  -webkit-mask-image: radial-gradient(circle at center, #000 58%, rgba(0,0,0,.86) 74%, rgba(0,0,0,.34) 88%, transparent 100%);
+  mask-image: radial-gradient(circle at center, #000 58%, rgba(0,0,0,.86) 74%, rgba(0,0,0,.34) 88%, transparent 100%);
+}
 
   .timelineContent h3{
     font-size:1.25rem;
