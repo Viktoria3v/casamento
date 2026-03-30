@@ -75,26 +75,39 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!overlay || !trigger || !video) return;
 
   let started = false;
+  let musicStarted = false;
 
-  function startMusic() {
-    if (!music) return;
+  function fadeInMusic() {
+    if (!music || musicStarted) return;
+    musicStarted = true;
 
     try {
       music.currentTime = 0;
       music.volume = 0;
-      music.play().then(() => {
-        let v = 0;
-        const fade = setInterval(() => {
-          v += 0.05;
-          music.volume = Math.min(v, 0.6);
 
-          if (v >= 0.6) {
-            clearInterval(fade);
-          }
-        }, 200);
-      }).catch(() => {
-        // ignore
-      });
+      const playPromise = music.play();
+
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise
+          .then(() => {
+            let v = 0;
+            const targetVolume = 0.6;
+            const step = 0.03;
+            const interval = 120;
+
+            const fade = setInterval(() => {
+              v += step;
+              music.volume = Math.min(v, targetVolume);
+
+              if (v >= targetVolume) {
+                clearInterval(fade);
+              }
+            }, interval);
+          })
+          .catch(() => {
+            // ignore
+          });
+      }
     } catch (e) {
       // ignore
     }
@@ -104,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.add("is-hidden");
     document.body.classList.add("invite-open");
     document.body.style.overflow = "auto";
-    startMusic();
   }
 
   video.addEventListener("loadeddata", () => {
@@ -120,6 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
     started = true;
 
     overlay.classList.add("is-playing");
+
+    fadeInMusic();
 
     try {
       video.currentTime = 0;
