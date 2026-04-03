@@ -501,7 +501,7 @@ p,
 
 @media (max-width:900px){
   .heroHeader{
-    min-height:auto;
+    min-height:100vh;
   }
 
   .hero__grid{
@@ -522,8 +522,8 @@ p,
   }
 
   .marquee{
-    height:58vh;
-    min-height:380px;
+    height:calc(100vh - 110px);
+    min-height:420px;
   }
 
   .marquee::before,
@@ -532,7 +532,7 @@ p,
   }
 
   .marqueeTrack img{
-  height:58vh;
+  height:66vh;
   }
 
   .introTapLayer{
