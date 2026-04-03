@@ -230,27 +230,29 @@ body.invite-open main{
 }
 
 .marqueeTrack img{
-  height:min(78vh, 900px);
+  height:min(88vh, 1100px);
   width:auto;
-  border-radius:30px;
+  border-radius:32px;
   box-shadow:
-    0 24px 48px rgba(177,146,121,.14),
-    0 8px 18px rgba(177,146,121,.08);
+    0 28px 60px rgba(177,146,121,.16),
+    0 10px 24px rgba(177,146,121,.10);
   filter:brightness(1.03) saturate(1.04);
+
   -webkit-mask-image:radial-gradient(
     circle at center,
-    #000 58%,
-    rgba(0,0,0,.92) 72%,
-    rgba(0,0,0,.58) 86%,
-    rgba(0,0,0,.22) 94%,
+    #000 62%,
+    rgba(0,0,0,.94) 74%,
+    rgba(0,0,0,.65) 86%,
+    rgba(0,0,0,.28) 94%,
     transparent 100%
   );
+
   mask-image:radial-gradient(
     circle at center,
-    #000 58%,
-    rgba(0,0,0,.92) 72%,
-    rgba(0,0,0,.58) 86%,
-    rgba(0,0,0,.22) 94%,
+    #000 62%,
+    rgba(0,0,0,.94) 74%,
+    rgba(0,0,0,.65) 86%,
+    rgba(0,0,0,.28) 94%,
     transparent 100%
   );
 }
@@ -293,15 +295,19 @@ body.invite-open main{
   height:42px;
   padding:0 16px;
   margin-top:0;
+
   background:#fff;
-  background-image:none;
   border:1px solid rgba(58,42,36,.22);
   box-shadow:none;
-  color:var(--text) !important;
-  -webkit-text-fill-color:var(--text);
-  font-family:Inter, system-ui, sans-serif;
-  font-size:1rem;
+
+  color:#3a2a24 !important;
+  -webkit-text-fill-color:#3a2a24;
+
+  font-family:Arial, Helvetica, sans-serif; /* 🔥 força símbolo não emoji */
+  font-size:1.1rem;
   line-height:1;
+
+  text-decoration:none;
 }
 
 .musicBtn,
@@ -310,9 +316,8 @@ body.invite-open main{
 .musicBtn:hover,
 .musicBtn:active,
 .musicBtn:focus{
-  color:var(--text) !important;
-  -webkit-text-fill-color:var(--text);
-  text-decoration:none;
+  color:#3a2a24 !important;
+  -webkit-text-fill-color:#3a2a24;
 }
 
 .musicBtn:hover{
@@ -320,7 +325,6 @@ body.invite-open main{
   border-color:rgba(58,42,36,.38);
   box-shadow:0 6px 16px rgba(177,146,121,.08);
   background:#fff;
-  background-image:none;
 }
 
 /* TYPOGRAPHY */
@@ -661,7 +665,7 @@ p,
   }
 
   .marqueeTrack img{
-    height:64vh;
+    height:70vh;
   }
 
   .scriptTitle{
@@ -747,7 +751,7 @@ p,
   }
 
   .marqueeTrack img{
-    height:54vh;
+    height:60vh;
     border-radius:22px;
   }
 
