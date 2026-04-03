@@ -131,15 +131,14 @@ body.invite-open main{
 /* HEADER */
 
 .heroHeader{
-  min-height:100svh;
+  min-height:100vh;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
 }
 
 .heroTitleTop{
   text-align:center;
-  padding:32px 0 18px;
+  padding:24px 0 14px;
   flex-shrink:0;
 }
 
@@ -170,8 +169,8 @@ body.invite-open main{
 .marquee{
   position:relative;
   overflow:hidden;
-  height:calc(100svh - 150px);
-  min-height:560px;
+  height:calc(100vh - 120px);
+  min-height:620px;
   display:flex;
   align-items:center;
 }
@@ -207,7 +206,7 @@ body.invite-open main{
 
 /* wrapper visual de cada imagem pelo próprio img */
 .marqueeTrack img{
-  height:74vh;
+  height:78vh;
   width:auto;
   border-radius:28px;
   box-shadow:0 24px 46px rgba(177,146,121,.16);
