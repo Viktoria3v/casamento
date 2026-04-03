@@ -211,12 +211,12 @@ body.invite-open main{
 
 .heroTitleTop{
   text-align:center;
-  padding:20px 0 6px;
+  padding:16px 0 4px;
 }
 
 .scriptTitle{
   font-family:"Great Vibes", cursive;
-  font-size:clamp(2.7rem, 6.2vw, 5.3rem);
+  font-size:clamp(3.2rem, 7.5vw, 6.2rem);
   margin:0;
   line-height:1;
   color:var(--text);
@@ -281,7 +281,7 @@ body.invite-open main{
 }
 
 .marqueeTrack img{
-  height:min(64vh, 720px);
+  height:min(72vh, 820px);
   width:auto;
   border-radius:26px;
   box-shadow:0 22px 44px rgba(177,146,121,.16);
@@ -628,7 +628,7 @@ p,
   }
 
   .marqueeTrack img{
-    height:52vh;
+    height:60vh;
   }
 
   .introTapLayer{
@@ -709,14 +709,14 @@ p,
     width:min(94vw, 94vw);
   }
 .scriptTitle{
-  font-size:clamp(2.2rem, 9vw, 3.2rem);
+  font-size:clamp(2.6rem, 9.5vw, 3.6rem);
 }
   .marqueeTrack{
     gap:20px;
   }
 
   .marqueeTrack img{
-    height:44vh;
+    height:50vh;
   }
 
   .card{
