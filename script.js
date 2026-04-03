@@ -3,7 +3,7 @@ if ("scrollRestoration" in history) {
 }
 
 const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-const MARQUEE_SPEED = 0.5;
+const MARQUEE_SPEED = 0.32;
 
 /* COUNTDOWN */
 
@@ -14,27 +14,6 @@ const cdSeconds = document.getElementById("cdSeconds");
 
 function pad(n) {
   return String(n).padStart(2, "0");
-}
-
-const music = document.getElementById("bgMusic");
-const toggleBtn = document.getElementById("musicToggle");
-
-let isPlaying = false;
-
-if (toggleBtn && music) {
-  toggleBtn.textContent = "▶";
-
-  toggleBtn.addEventListener("click", () => {
-    if (isPlaying) {
-      music.pause();
-      toggleBtn.textContent = "▶";
-      isPlaying = false;
-    } else {
-      music.play();
-      toggleBtn.textContent = "⏸";
-      isPlaying = true;
-    }
-  });
 }
 
 function updateCountdown() {
@@ -66,6 +45,56 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+/* AUDIO CONTROL */
+
+const music = document.getElementById("bgMusic");
+const toggleBtn = document.getElementById("musicToggle");
+
+let isPlaying = false;
+
+function setMusicButtonState() {
+  if (!toggleBtn) return;
+  toggleBtn.textContent = isPlaying ? "Pause" : "Play";
+}
+
+function playMusic() {
+  if (!music) return Promise.reject(new Error("Audio não encontrado"));
+
+  const playPromise = music.play();
+
+  if (playPromise && typeof playPromise.then === "function") {
+    return playPromise.then(() => {
+      isPlaying = true;
+      setMusicButtonState();
+    });
+  }
+
+  isPlaying = true;
+  setMusicButtonState();
+  return Promise.resolve();
+}
+
+function pauseMusic() {
+  if (!music) return;
+  music.pause();
+  isPlaying = false;
+  setMusicButtonState();
+}
+
+setMusicButtonState();
+
+if (toggleBtn && music) {
+  toggleBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      pauseMusic();
+    } else {
+      playMusic().catch((err) => {
+        console.error("Erro ao reproduzir música:", err);
+      });
+    }
+  });
+}
 
 /* MARQUEE */
 
@@ -101,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("introOverlay");
   const trigger = document.getElementById("openInvite");
   const video = document.getElementById("introVideo");
-  const music = document.getElementById("bgMusic");
 
   if (!overlay || !trigger || !video) return;
 
@@ -114,53 +142,49 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo(0, 0);
   }
 
-function startMusicWithFade() {
-  if (!music) return;
+  function startMusicWithFade() {
+    if (!music) return;
 
-  try {
-    music.currentTime = 0;
-  } catch (e) {}
+    try {
+      music.currentTime = 0;
+    } catch (e) {}
 
-  try {
-    music.volume = 0.01;
-  } catch (e) {}
+    try {
+      music.volume = 0.01;
+    } catch (e) {}
 
-  const playPromise = music.play();
+    const playPromise = music.play();
 
-  if (playPromise && typeof playPromise.then === "function") {
-    playPromise
-      .then(() => {
-        isPlaying = true;
-        if (toggleBtn) {
-          toggleBtn.textContent = "⏸";
-        }
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise
+        .then(() => {
+          isPlaying = true;
+          setMusicButtonState();
 
-        let current = 0.01;
-        const target = 0.6;
-        const step = 0.04;
+          let current = 0.01;
+          const target = 0.6;
+          const step = 0.04;
 
-        const fade = setInterval(() => {
-          try {
-            current = Math.min(current + step, target);
-            music.volume = current;
+          const fade = setInterval(() => {
+            try {
+              current = Math.min(current + step, target);
+              music.volume = current;
 
-            if (current >= target) {
+              if (current >= target) {
+                clearInterval(fade);
+              }
+            } catch (e) {
               clearInterval(fade);
             }
-          } catch (e) {
-            clearInterval(fade);
-          }
-        }, 180);
-      })
-      .catch((err) => {
-        console.error("Erro ao iniciar música:", err);
-        isPlaying = false;
-        if (toggleBtn) {
-          toggleBtn.textContent = "▶";
-        }
-      });
+          }, 180);
+        })
+        .catch((err) => {
+          console.error("Erro ao iniciar música:", err);
+          isPlaying = false;
+          setMusicButtonState();
+        });
+    }
   }
-}
 
   video.addEventListener("loadeddata", () => {
     try {
