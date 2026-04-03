@@ -24,10 +24,10 @@ let isPlaying = false;
 toggleBtn.addEventListener("click", () => {
   if (isPlaying) {
     music.pause();
-    toggleBtn.textContent = "Reproduzir música";
+    toggleBtn.textContent = "▶";
   } else {
     music.play();
-    toggleBtn.textContent = "Pausar música";
+    toggleBtn.textContent = "⏸";
   }
 
   isPlaying = !isPlaying;
