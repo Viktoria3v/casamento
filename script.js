@@ -71,7 +71,6 @@ if (track) {
 /* INTRO VIDEO + MUSIC */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Forçar começar sempre no topo
   if (window.location.hash) {
     history.replaceState(null, null, window.location.pathname);
   }
@@ -91,8 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.add("is-hidden");
     document.body.classList.add("invite-open");
     document.body.style.overflow = "auto";
-
-    // Garantir topo depois do vídeo
     window.scrollTo(0, 0);
   }
 
@@ -101,15 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       music.currentTime = 0;
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
 
     try {
       music.volume = 0.01;
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
 
     const playPromise = music.play();
 
@@ -142,9 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
   video.addEventListener("loadeddata", () => {
     try {
       video.currentTime = 0.01;
-    } catch (e) {
-      // fallback para o poster
-    }
+    } catch (e) {}
   });
 
   async function startIntro() {
@@ -152,15 +143,11 @@ document.addEventListener("DOMContentLoaded", () => {
     started = true;
 
     overlay.classList.add("is-playing");
-
-    // Música e vídeo arrancam juntos
     startMusicWithFade();
 
     try {
       video.currentTime = 0;
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
 
     try {
       await video.play();
