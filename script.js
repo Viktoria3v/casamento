@@ -1,3 +1,7 @@
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
 const MARQUEE_SPEED = 0.5;
 
@@ -67,6 +71,13 @@ if (track) {
 /* INTRO VIDEO + MUSIC */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Forçar começar sempre no topo
+  if (window.location.hash) {
+    history.replaceState(null, null, window.location.pathname);
+  }
+
+  window.scrollTo(0, 0);
+
   const overlay = document.getElementById("introOverlay");
   const trigger = document.getElementById("openInvite");
   const video = document.getElementById("introVideo");
@@ -75,48 +86,57 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!overlay || !trigger || !video) return;
 
   let started = false;
-  let musicStarted = false;
-
-  function fadeInMusic() {
-    if (!music || musicStarted) return;
-    musicStarted = true;
-
-    try {
-      music.currentTime = 0;
-      music.volume = 0;
-
-      const playPromise = music.play();
-
-      if (playPromise && typeof playPromise.then === "function") {
-        playPromise
-          .then(() => {
-            let v = 0;
-            const targetVolume = 0.6;
-            const step = 0.03;
-            const interval = 120;
-
-            const fade = setInterval(() => {
-              v += step;
-              music.volume = Math.min(v, targetVolume);
-
-              if (v >= targetVolume) {
-                clearInterval(fade);
-              }
-            }, interval);
-          })
-          .catch(() => {
-            // ignore
-          });
-      }
-    } catch (e) {
-      // ignore
-    }
-  }
 
   function unlockSite() {
     overlay.classList.add("is-hidden");
     document.body.classList.add("invite-open");
     document.body.style.overflow = "auto";
+
+    // Garantir topo depois do vídeo
+    window.scrollTo(0, 0);
+  }
+
+  function startMusicWithFade() {
+    if (!music) return;
+
+    try {
+      music.currentTime = 0;
+    } catch (e) {
+      // ignore
+    }
+
+    try {
+      music.volume = 0.01;
+    } catch (e) {
+      // ignore
+    }
+
+    const playPromise = music.play();
+
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise
+        .then(() => {
+          let current = 0.01;
+          const target = 0.6;
+          const step = 0.04;
+
+          const fade = setInterval(() => {
+            try {
+              current = Math.min(current + step, target);
+              music.volume = current;
+
+              if (current >= target) {
+                clearInterval(fade);
+              }
+            } catch (e) {
+              clearInterval(fade);
+            }
+          }, 180);
+        })
+        .catch((err) => {
+          console.error("Erro ao iniciar música:", err);
+        });
+    }
   }
 
   video.addEventListener("loadeddata", () => {
@@ -133,12 +153,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     overlay.classList.add("is-playing");
 
-    fadeInMusic();
+    // Música e vídeo arrancam juntos
+    startMusicWithFade();
 
     try {
       video.currentTime = 0;
+    } catch (e) {
+      // ignore
+    }
+
+    try {
       await video.play();
     } catch (e) {
+      console.error("Erro ao iniciar vídeo:", e);
       unlockSite();
     }
   }
