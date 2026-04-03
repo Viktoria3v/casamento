@@ -31,6 +31,14 @@ img{
   display:block;
 }
 
+.musicControl{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:5;
+}
+
 .wrap{
   width:min(1120px,92vw);
   margin:auto;
