@@ -16,6 +16,23 @@ function pad(n) {
   return String(n).padStart(2, "0");
 }
 
+const music = document.getElementById("bgMusic");
+const toggleBtn = document.getElementById("musicToggle");
+
+let isPlaying = false;
+
+toggleBtn.addEventListener("click", () => {
+  if (isPlaying) {
+    music.pause();
+    toggleBtn.textContent = "Reproduzir música";
+  } else {
+    music.play();
+    toggleBtn.textContent = "Pausar música";
+  }
+
+  isPlaying = !isPlaying;
+});
+
 function updateCountdown() {
   if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
 
