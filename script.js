@@ -55,7 +55,7 @@ let isPlaying = false;
 
 function setMusicButtonState() {
   if (!toggleBtn) return;
-  toggleBtn.textContent = isPlaying ? "Pause" : "Play";
+  toggleBtn.textContent = isPlaying ? "⏸" : "▶";
 }
 
 function playMusic() {
