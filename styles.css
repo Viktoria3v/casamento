@@ -62,57 +62,54 @@ img{
 }
 
 .musicNote{
-  font-size:.95rem;
+  font-size:1.06rem;
+  line-height:1.5;
   color:var(--muted);
   text-align:center;
   margin:0;
-  font-family:Inter, system-ui, sans-serif;
+  font-family:"Cormorant Garamond", serif;
 }
 
 .musicBtn{
   background:transparent;
-  border:1px solid var(--stroke);
+  border:1px solid rgba(58,42,36,.22);
   box-shadow:none;
   color:var(--text);
   padding:10px 18px;
 }
 
+.musicBtn,
+.musicBtn:visited,
+.musicBtn:active{
+  color:var(--text);
+}
+
 .musicBtn:hover{
   transform:translateY(-1px);
-  border-color:rgba(160,130,110,.3);
+  border-color:rgba(58,42,36,.38);
   box-shadow:0 6px 16px rgba(177,146,121,.08);
 }
 
-.musicNote{
-  font-size:.95rem;
-  color:var(--muted);
-  text-align:center;
-  margin:0;
-  font-family:Inter, system-ui, sans-serif;
-  position:relative;
-}
 
 /* linha da seta */
 .musicNote::after{
-  content:"";
+  content:"⌵";
   display:block;
-  width:1px;
-  height:22px;
-  margin:6px auto 0;
-  background:linear-gradient(to bottom, var(--gold), transparent);
-  opacity:.6;
+  margin-top:1px;
+  font-family:"Great Vibes", cursive;
+  font-size:.9rem;
+  line-height:1;
+  color:var(--muted);
+  opacity:.7;
 }
 
 /* ponta da seta */
-.musicControl::after{
-  content:"";
-  width:6px;
-  height:6px;
-  border-right:1px solid var(--gold);
-  border-bottom:1px solid var(--gold);
-  transform:rotate(45deg);
-  margin-top:-4px;
-  opacity:.6;
+.musicControl{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin:18px 0 10px;
+  gap:4px;
 }
 
 /* INTRO VIDEO */
@@ -219,12 +216,14 @@ body.invite-open main{
 
 .scriptTitle{
   font-family:"Great Vibes", cursive;
-  font-size:clamp(3.4rem, 7vw, 5.3rem);
+  font-size:clamp(2.7rem, 6.2vw, 5.3rem);
   margin:0;
   line-height:1;
   color:var(--text);
   text-shadow:0 1px 0 rgba(255,255,255,.35);
+  white-space:nowrap;
 }
+
 
 .scriptAmp{
   opacity:.75;
@@ -709,7 +708,9 @@ p,
   .narrowWrap{
     width:min(94vw, 94vw);
   }
-
+.scriptTitle{
+  font-size:clamp(2.2rem, 9vw, 3.2rem);
+}
   .marqueeTrack{
     gap:20px;
   }
