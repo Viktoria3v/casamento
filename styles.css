@@ -309,4 +309,32 @@ body.invite-open main{
   .marqueeTrack img{
     height:52vh;
   }
+  .musicControlWrap{
+  display:flex;
+  justify-content:center;
+  margin-top:10px;
+  margin-bottom:18px;
+}
+
+.musicBtn{
+  font-family:Inter, sans-serif;
+  font-size:.85rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(160,130,110,.18);
+  padding:10px 18px;
+  border-radius:999px;
+
+  backdrop-filter:blur(8px);
+  cursor:pointer;
+
+  transition:all .25s ease;
+}
+
+.musicBtn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
 }
