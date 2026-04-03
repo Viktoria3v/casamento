@@ -83,6 +83,38 @@ img{
   box-shadow:0 6px 16px rgba(177,146,121,.08);
 }
 
+.musicNote{
+  font-size:.95rem;
+  color:var(--muted);
+  text-align:center;
+  margin:0;
+  font-family:Inter, system-ui, sans-serif;
+  position:relative;
+}
+
+/* linha da seta */
+.musicNote::after{
+  content:"";
+  display:block;
+  width:1px;
+  height:22px;
+  margin:6px auto 0;
+  background:linear-gradient(to bottom, var(--gold), transparent);
+  opacity:.6;
+}
+
+/* ponta da seta */
+.musicControl::after{
+  content:"";
+  width:6px;
+  height:6px;
+  border-right:1px solid var(--gold);
+  border-bottom:1px solid var(--gold);
+  transform:rotate(45deg);
+  margin-top:-4px;
+  opacity:.6;
+}
+
 /* INTRO VIDEO */
 
 .introOverlay{
