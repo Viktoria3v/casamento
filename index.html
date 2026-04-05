@@ -57,6 +57,7 @@
     <div class="musicControl" data-aos="fade-up" data-aos-duration="800" data-aos-delay="120">
       <p class="musicNote">Se a música estiver a distrair, pode pausá-la aqui</p>
       <button id="musicToggle" class="btn musicBtn" type="button" aria-label="Controlar música">&#9654;</button>
+      <p class="scrollHint">Faça scroll para continuar<span class="scrollHintArrow">⌵</span></p>
     </div>
   </header>
 
@@ -140,11 +141,11 @@
               <path
                 id="agendaPath"
                 d="M50 12
-                   C 68 48, 68 88, 50 124
-                   C 32 160, 32 200, 50 236
-                   C 68 272, 68 312, 50 348
-                   C 32 384, 32 424, 50 460
-                   C 68 500, 68 552, 50 612" />
+                   C 62 48, 62 88, 50 124
+                   C 38 160, 38 200, 50 236
+                   C 62 272, 62 312, 50 348
+                   C 38 384, 38 424, 50 460
+                   C 62 500, 62 552, 50 612" />
             </svg>
 
             <div class="agendaFlow__heart" id="agendaHeart">&#10084;</div>
@@ -203,9 +204,9 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section detailsSection">
       <div class="wrap narrowWrap">
-        <h2 data-aos="fade-up">Dress code</h2>
+        <h2 data-aos="fade-up">Detalhes</h2>
         <div class="card softCard" data-aos="fade-up" data-aos-delay="80">
           <p>
             Não queremos impor cores, estilos ou regras. O mais importante para nós é que venham exatamente como se sentem mais felizes: confortáveis, confiantes e lindos, por dentro e por fora.
@@ -231,7 +232,7 @@
       </div>
     </section>
 
-    <section class="section" id="local">
+    <section class="section localSection" id="local">
       <div class="wrap">
         <h2 data-aos="fade-up">Local</h2>
 
@@ -254,7 +255,7 @@
                 rel="noopener"
                 href="https://www.google.com/maps/search/?api=1&query=Igreja%20do%20Castelo%20Lourinha"
               >
-                Ver loal da cerimónia religiosa
+                Ver local da cerimónia religiosa
               </a>
 
               <a
@@ -269,20 +270,26 @@
           </div>
 
           <div class="mapsStack" data-aos="fade-left" data-aos-duration="900" data-aos-delay="80">
-            <div class="card map">
-              <iframe
-                src="https://www.google.com/maps?q=Igreja%20do%20Castelo%20Lourinha&output=embed"
-                loading="lazy"
-                title="Mapa Igreja do Castelo">
-              </iframe>
+            <div class="mapBlock">
+              <h3 class="mapTitle">Cerimónia religiosa</h3>
+              <div class="card map">
+                <iframe
+                  src="https://www.google.com/maps?q=Igreja%20do%20Castelo%20Lourinha&output=embed"
+                  loading="lazy"
+                  title="Mapa Igreja do Castelo">
+                </iframe>
+              </div>
             </div>
 
-            <div class="card map">
-              <iframe
-                src="https://www.google.com/maps?q=Quinta%20do%20Pateo%20Dois%20Portos%20Torres%20Vedras&output=embed"
-                loading="lazy"
-                title="Mapa Quinta do Pateo">
-              </iframe>
+            <div class="mapBlock">
+              <h3 class="mapTitle">Copo de água</h3>
+              <div class="card map">
+                <iframe
+                  src="https://www.google.com/maps?q=Quinta%20do%20Pateo%20Dois%20Portos%20Torres%20Vedras&output=embed"
+                  loading="lazy"
+                  title="Mapa Quinta do Pateo">
+                </iframe>
+              </div>
             </div>
           </div>
         </div>
