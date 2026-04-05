@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -33,7 +33,7 @@
   </div>
 
   <header class="heroHeader">
-    <div class="heroTitleTop">
+    <div class="heroTitleTop" data-aos="fade-down" data-aos-duration="900">
       <h1 class="scriptTitle">
         Dmytro <span class="scriptAmp">&</span> Viktoriya
       </h1>
@@ -43,34 +43,29 @@
       </p>
     </div>
 
-    <div class="marquee">
+    <div class="marquee" data-aos="zoom-in" data-aos-duration="1100" data-aos-delay="100">
       <div class="marqueeTrack" id="marqueeTrack">
         <img src="assets/hero-1.jpg" alt="">
         <img src="assets/hero-2.jpg" alt="">
         <img src="assets/hero-3.jpg" alt="">
-        <img src="assets/hero-4.jpg" alt="">
-        <img src="assets/hero-5.jpg" alt="">
-        <img src="assets/hero-6.jpg" alt="">
       </div>
     </div>
-<div class="musicControl">
-  <p class="musicNote">
-    Se a música estiver a distrair, pode pausá-la aqui
-  </p>
 
-  <button id="musicToggle" class="btn musicBtn" type="button">
-    ▶
-  </button>
-</div>
+    <div class="musicControl" data-aos="fade-up" data-aos-duration="800" data-aos-delay="120">
+      <p class="musicNote">Se a música estiver a distrair, pode pausá-la aqui</p>
+      <button id="musicToggle" class="btn musicBtn" type="button" aria-label="Controlar música">&#9654;</button>
+    </div>
   </header>
 
   <main id="conteudo">
 
     <section class="hero">
       <div class="wrap hero__grid">
-        <div>
+        <div data-aos="fade-right" data-aos-duration="900">
+          <p class="eyebrow">Casamento</p>
+
           <p class="subtitle">
-            Convidamo-vos para celebrar connosco o dia mais bonito das nossas vidas.
+            Com amor, convidamo-vos para celebrar connosco o dia mais bonito das nossas vidas.
           </p>
 
           <div class="countdown">
@@ -98,7 +93,7 @@
           <a class="btn" href="#local">Ver localização</a>
         </div>
 
-        <div class="card introCard">
+        <div class="card introCard" data-aos="fade-left" data-aos-duration="900" data-aos-delay="100">
           <h3>Querida família e amigos</h3>
           <p class="muted">
             Há amores que parecem escritos muito antes de começarem. O nosso nasceu longe de casa, mas encontrou em Portugal o lugar certo para crescer. Agora, com o coração cheio, convidamo-vos a celebrar connosco este dia tão especial. Queremos vivê-lo rodeados das pessoas que mais amamos, entre sorrisos, abraços e memórias que ficarão para sempre.
@@ -110,14 +105,13 @@
     <section class="section agendaSection">
       <div class="wrap agendaGrid">
 
-        <div>
+        <div data-aos="fade-right" data-aos-duration="900">
           <h2>Agenda</h2>
 
           <div class="timeline">
-
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="0">
               <div class="timelineIcon">
-                <img src="assets/icon-igreja.jpg" alt="Ícone cerimónia religiosa">
+                <img src="assets/icon-igreja.png" alt="Ícone cerimónia religiosa">
               </div>
               <div class="timelineContent">
                 <div class="timelineTime">11:00</div>
@@ -125,7 +119,7 @@
               </div>
             </div>
 
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="60">
               <div class="timelineIcon">
                 <img src="assets/icon-cocktail.jpeg" alt="Ícone cocktail">
               </div>
@@ -135,7 +129,7 @@
               </div>
             </div>
 
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="120">
               <div class="timelineIcon">
                 <img src="assets/icon-almoco.jpeg" alt="Ícone almoço">
               </div>
@@ -145,9 +139,9 @@
               </div>
             </div>
 
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="180">
               <div class="timelineIcon">
-                <img src="assets/icon-festa.jpg" alt="Ícone festa">
+                <img src="assets/icon-festa.png" alt="Ícone festa">
               </div>
               <div class="timelineContent">
                 <div class="timelineTime">18:00</div>
@@ -155,9 +149,9 @@
               </div>
             </div>
 
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="240">
               <div class="timelineIcon">
-                <img src="assets/icon-bolo.jpg" alt="Ícone bolo">
+                <img src="assets/icon-bolo.png" alt="Ícone bolo">
               </div>
               <div class="timelineContent">
                 <div class="timelineTime">21:00</div>
@@ -165,9 +159,9 @@
               </div>
             </div>
 
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="300">
               <div class="timelineIcon">
-                <img src="assets/icon-buffet.jpg" alt="Ícone buffet">
+                <img src="assets/icon-buffet.png" alt="Ícone buffet">
               </div>
               <div class="timelineContent">
                 <div class="timelineTime">21:30</div>
@@ -175,20 +169,19 @@
               </div>
             </div>
 
-            <div class="timeline__item">
+            <div class="timeline__item" data-aos="fade-up" data-aos-delay="360">
               <div class="timelineIcon">
-                <img src="assets/icon-fim.jpg" alt="Ícone despedida">
+                <img src="assets/icon-fim.png" alt="Ícone despedida">
               </div>
               <div class="timelineContent">
                 <div class="timelineTime">00:00</div>
                 <h3>Despedida</h3>
               </div>
             </div>
-
           </div>
         </div>
 
-        <div class="agendaImage">
+        <div class="agendaImage" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="120">
           <img src="assets/igreja-lateral.jfif" alt="">
         </div>
 
@@ -197,8 +190,8 @@
 
     <section class="section">
       <div class="wrap narrowWrap">
-        <h2>Dress code</h2>
-        <div class="card softCard">
+        <h2 data-aos="fade-up">Dress code</h2>
+        <div class="card softCard" data-aos="fade-up" data-aos-delay="80">
           <p>
             Não queremos impor cores, estilos ou regras. O mais importante para nós é que venham exatamente como se sentem mais felizes: confortáveis, confiantes e lindos, por dentro e por fora.
           </p>
@@ -211,13 +204,13 @@
 
     <section class="section rsvpSection">
       <div class="wrap narrowWrap">
-        <h2>Confirmação de presença</h2>
-        <div class="card softCard">
+        <h2 data-aos="fade-up">Confirmação de presença</h2>
+        <div class="card softCard" data-aos="fade-up" data-aos-delay="80">
           <p>
             Para nos ajudarem a preparar este dia com todo o carinho, pedimos que confirmem a vossa presença até ao dia <strong>30/04</strong>.
           </p>
           <p>
-            Cada resposta será recebida com muito amor, porque saber que vamos partilhar este momento convosco torna tudo ainda mais especial. Mal podemos esperar por viver este dia de coração cheio, rodeados das pessoas que fazem parte da nossa história.
+            Cada resposta será recebida com muito amor, porque saber que vamos partilhar este momento convosco torna tudo ainda mais especial.
           </p>
         </div>
       </div>
@@ -225,10 +218,10 @@
 
     <section class="section" id="local">
       <div class="wrap">
-        <h2>Local</h2>
+        <h2 data-aos="fade-up">Local</h2>
 
         <div class="twoCol">
-          <div class="card">
+          <div class="card" data-aos="fade-right" data-aos-duration="900">
             <h3>Locais</h3>
 
             <p class="muted">
@@ -248,7 +241,7 @@
                 rel="noopener"
                 href="https://www.google.com/maps/search/?api=1&query=Igreja%20do%20Castelo%20Lourinha"
               >
-                Ver localização da igreja
+                Ver igreja
               </a>
 
               <a
@@ -257,12 +250,12 @@
                 rel="noopener"
                 href="https://www.google.com/maps/search/?api=1&query=Quinta%20do%20Pateo%2C%20Torres%20Vedras"
               >
-                Ver localização da quinta
+                Ver quinta
               </a>
             </div>
           </div>
 
-          <div class="card map">
+          <div class="card map" data-aos="fade-left" data-aos-duration="900" data-aos-delay="80">
             <iframe
               src="https://www.google.com/maps?q=Quinta%20do%20Pateo%20Dois%20Portos%20Torres%20Vedras&output=embed"
               loading="lazy"
@@ -275,18 +268,18 @@
 
     <section class="section finalNoteSection">
       <div class="wrap narrowWrap">
-        <div class="finalNote">
+        <div class="finalNote" data-aos="fade-up" data-aos-duration="950">
           <p>
-            Estamos profundamente apaixonados, felizes e gratos pela vida que nos trouxe até aqui.
+            Estamos muito felizes por partilhar este dia convosco.
           </p>
           <p>
-            Este dia será o início de um novo capítulo, e não conseguimos imaginar forma mais bonita de o começar do que convosco ao nosso lado. Obrigado por fazerem parte da nossa história e por levarem convosco tanto amor para este dia.
+            Obrigado por fazerem parte da nossa história e por levarem o vosso carinho para este momento tão especial.
           </p>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer" data-aos="fade-up" data-aos-duration="1100">
       <img class="footerChurch" src="assets/igreja-escada.jfif" alt="">
     </footer>
 
@@ -296,6 +289,7 @@
     <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
