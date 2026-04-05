@@ -3,7 +3,7 @@ if ("scrollRestoration" in history) {
 }
 
 const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-const MARQUEE_SPEED = 0.65;
+const MARQUEE_SPEED = 0.78;
 
 /* COUNTDOWN */
 
@@ -247,7 +247,6 @@ document.addEventListener("DOMContentLoaded", () => {
     started = true;
 
     overlay.classList.add("is-playing");
-
     startMusicWithFade();
 
     try {
