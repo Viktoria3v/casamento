@@ -46,6 +46,25 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+/* AGENDA FLOW ANIMATION */
+
+const agendaFlow = document.getElementById("agendaFlow");
+
+if (agendaFlow) {
+  const agendaObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          agendaFlow.classList.add("is-visible");
+          agendaObserver.unobserve(agendaFlow);
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+
+  agendaObserver.observe(agendaFlow);
+}
 /* AUDIO CONTROL */
 
 const music = document.getElementById("bgMusic");
