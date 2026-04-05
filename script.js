@@ -3,7 +3,7 @@ if ("scrollRestoration" in history) {
 }
 
 const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-const MARQUEE_SPEED = 0.32;
+const MARQUEE_SPEED = 0.3;
 
 /* COUNTDOWN */
 
@@ -46,25 +46,6 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-/* AGENDA FLOW ANIMATION */
-
-const agendaFlow = document.getElementById("agendaFlow");
-
-if (agendaFlow) {
-  const agendaObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          agendaFlow.classList.add("is-visible");
-          agendaObserver.unobserve(agendaFlow);
-        }
-      });
-    },
-    { threshold: 0.35 }
-  );
-
-  agendaObserver.observe(agendaFlow);
-}
 /* AUDIO CONTROL */
 
 const music = document.getElementById("bgMusic");
@@ -135,6 +116,42 @@ if (track) {
   }
 
   animate();
+}
+
+/* AGENDA HEART FOLLOWING THE CURVE */
+
+const agendaFlow = document.getElementById("agendaFlow");
+const agendaPath = document.getElementById("agendaPath");
+const agendaHeart = document.getElementById("agendaHeart");
+
+function setupAgendaPath() {
+  if (!agendaFlow || !agendaPath || !agendaHeart) return;
+
+  const totalLength = agendaPath.getTotalLength();
+  agendaPath.style.strokeDasharray = `${totalLength}`;
+  agendaPath.style.strokeDashoffset = `${totalLength}`;
+
+  function updateAgendaScrollAnimation() {
+    const rect = agendaFlow.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const start = viewportHeight * 0.82;
+    const end = -rect.height * 0.18;
+
+    let progress = (start - rect.top) / (start - end);
+    progress = Math.max(0, Math.min(1, progress));
+
+    const draw = totalLength * (1 - progress);
+    agendaPath.style.strokeDashoffset = `${draw}`;
+
+    const point = agendaPath.getPointAtLength(totalLength * progress);
+    agendaHeart.style.left = `${point.x}%`;
+    agendaHeart.style.top = `${(point.y / 760) * 100}%`;
+    agendaHeart.style.opacity = progress > 0.03 ? "1" : "0";
+  }
+
+  updateAgendaScrollAnimation();
+  window.addEventListener("scroll", updateAgendaScrollAnimation, { passive: true });
+  window.addEventListener("resize", updateAgendaScrollAnimation);
 }
 
 /* INTRO VIDEO + MUSIC + AOS */
@@ -252,8 +269,9 @@ document.addEventListener("DOMContentLoaded", () => {
       easing: "ease-out-cubic",
       once: true,
       offset: 80,
-      delay: 0,
       mirror: false
     });
   }
+
+  setupAgendaPath();
 });
