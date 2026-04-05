@@ -3,7 +3,7 @@ if ("scrollRestoration" in history) {
 }
 
 const WEDDING_ISO = "2026-06-20T12:00:00+01:00";
-const MARQUEE_SPEED = 0.3;
+const MARQUEE_SPEED = 0.65;
 
 /* COUNTDOWN */
 
@@ -128,6 +128,12 @@ function setupAgendaPath() {
   if (!agendaFlow || !agendaPath || !agendaHeart) return;
 
   const totalLength = agendaPath.getTotalLength();
+  const svg = agendaPath.ownerSVGElement;
+  const viewBoxHeight =
+    svg && svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.height
+      ? svg.viewBox.baseVal.height
+      : 620;
+
   agendaPath.style.strokeDasharray = `${totalLength}`;
   agendaPath.style.strokeDashoffset = `${totalLength}`;
 
@@ -145,7 +151,7 @@ function setupAgendaPath() {
 
     const point = agendaPath.getPointAtLength(totalLength * progress);
     agendaHeart.style.left = `${point.x}%`;
-    agendaHeart.style.top = `${(point.y / 760) * 100}%`;
+    agendaHeart.style.top = `${(point.y / viewBoxHeight) * 100}%`;
     agendaHeart.style.opacity = progress > 0.03 ? "1" : "0";
   }
 
@@ -171,6 +177,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let started = false;
 
+  if (music) {
+    try {
+      music.load();
+      music.volume = 0.18;
+    } catch (e) {}
+  }
+
   function unlockSite() {
     overlay.classList.add("is-hidden");
     document.body.classList.add("invite-open");
@@ -187,10 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       music.currentTime = 0;
-    } catch (e) {}
-
-    try {
-      music.volume = 0.01;
+      music.volume = 0.18;
     } catch (e) {}
 
     const playPromise = music.play();
@@ -201,9 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
           isPlaying = true;
           setMusicButtonState();
 
-          let current = 0.01;
+          let current = 0.18;
           const target = 0.6;
-          const step = 0.04;
+          const step = 0.06;
 
           const fade = setInterval(() => {
             try {
@@ -216,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (e) {
               clearInterval(fade);
             }
-          }, 180);
+          }, 120);
         })
         .catch((err) => {
           console.error("Erro ao iniciar música:", err);
@@ -226,9 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  video.addEventListener("loadeddata", () => {
+  video.addEventListener("loadedmetadata", () => {
     try {
-      video.currentTime = 0.01;
+      video.currentTime = 0;
     } catch (e) {}
   });
 
@@ -237,6 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     started = true;
 
     overlay.classList.add("is-playing");
+
     startMusicWithFade();
 
     try {
