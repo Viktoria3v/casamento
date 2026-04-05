@@ -96,6 +96,26 @@ if (toggleBtn && music) {
   });
 }
 
+/* PAUSE MUSIC WHEN PAGE IS NOT ACTIVE */
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && isPlaying) {
+    pauseMusic();
+  }
+});
+
+window.addEventListener("pagehide", () => {
+  if (isPlaying) {
+    pauseMusic();
+  }
+});
+
+window.addEventListener("blur", () => {
+  if (document.hidden && isPlaying) {
+    pauseMusic();
+  }
+});
+
 /* MARQUEE */
 
 const track = document.getElementById("marqueeTrack");
