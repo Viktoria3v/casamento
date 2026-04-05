@@ -55,7 +55,7 @@ let isPlaying = false;
 
 function setMusicButtonState() {
   if (!toggleBtn) return;
-  toggleBtn.textContent = isPlaying ? "⏸" : "▶";
+  toggleBtn.innerHTML = isPlaying ? "&#10074;&#10074;" : "&#9654;";
 }
 
 function playMusic() {
@@ -118,7 +118,7 @@ if (track) {
   animate();
 }
 
-/* INTRO VIDEO + MUSIC */
+/* INTRO VIDEO + MUSIC + AOS */
 
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.hash) {
@@ -140,6 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("invite-open");
     document.body.style.overflow = "auto";
     window.scrollTo(0, 0);
+
+    if (window.AOS) {
+      AOS.refreshHard();
+    }
   }
 
   function startMusicWithFade() {
@@ -222,4 +226,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   video.addEventListener("ended", unlockSite);
   video.addEventListener("error", unlockSite);
+
+  if (window.AOS) {
+    AOS.init({
+      duration: 900,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 80,
+      delay: 0,
+      mirror: false
+    });
+  }
 });
