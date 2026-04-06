@@ -13,6 +13,7 @@
 
 *{
   box-sizing:border-box;
+  min-width:0;
 }
 
 html,
@@ -20,10 +21,12 @@ body{
   margin:0;
   padding:0;
   width:100%;
+  max-width:100%;
   overflow-x:hidden;
 }
 
 body{
+  position:relative;
   margin:0;
   font-family:"Cormorant Garamond", serif;
   background:
@@ -33,18 +36,46 @@ body{
   overflow-y:hidden;
 }
 
-img{
+img,
+video,
+iframe{
   max-width:100%;
   display:block;
 }
 
+@supports (overflow: clip){
+  html,
+  body{
+    overflow-x:clip;
+  }
+}
+
 .wrap{
   width:min(1120px, 92vw);
+  max-width:100%;
   margin:auto;
 }
 
 .narrowWrap{
   width:min(860px, 92vw);
+  max-width:100%;
+}
+
+.heroHeader,
+main,
+.section,
+.footer,
+.hero,
+.hero__grid,
+.twoCol,
+.agendaSectionWrap,
+.agendaMain,
+.mapsStack,
+.locationButtons,
+.marquee,
+.agendaFlow{
+  max-width:100%;
+  min-width:0;
 }
 
 /* INTRO VIDEO */
@@ -76,7 +107,6 @@ img{
   z-index:1;
   pointer-events:none;
   background:#000;
-  display:block;
 }
 
 .introTapLayer{
@@ -92,13 +122,13 @@ img{
 
 .videoHint{
   position:absolute;
-  left:11vw;
-  bottom:19vh;
+  left:13vw;
+  bottom:22vh;
   display:block;
   font-family:"Great Vibes", cursive;
   font-size:clamp(3rem, 4.8vw, 4.3rem);
   font-weight:400;
-  line-height:1.18;
+  line-height:1.08;
   color:#fff7ea;
   letter-spacing:.01em;
   text-shadow:
@@ -159,7 +189,10 @@ body.invite-open main{
   line-height:1;
   color:var(--text);
   text-shadow:0 1px 0 rgba(255,255,255,.35);
-  white-space:nowrap;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  padding:0 12px;
 }
 
 .scriptAmp{
@@ -175,6 +208,7 @@ body.invite-open main{
   font-size:.78rem;
   text-transform:uppercase;
   margin-top:10px;
+  padding:0 12px;
 }
 
 /* MARQUEE */
@@ -311,6 +345,7 @@ body.invite-open main{
 
 .agendaMain{
   min-width:0;
+  overflow:hidden;
 }
 
 /* MUSIC CONTROL */
@@ -321,6 +356,7 @@ body.invite-open main{
   align-items:center;
   margin:14px 0 2px;
   gap:2px;
+  padding:0 10px;
 }
 
 .musicNote{
@@ -420,6 +456,7 @@ p,
 
 .hero{
   padding:50px 0 24px;
+  overflow:hidden;
 }
 
 .hero__grid{
@@ -454,6 +491,7 @@ p,
   grid-template-columns:repeat(3, minmax(88px, 112px));
   background:rgba(255,255,255,.52);
   border:1px solid rgba(120,102,90,.22);
+  max-width:100%;
 }
 
 .miniCalendar__day{
@@ -573,6 +611,7 @@ p,
 
 .btn{
   display:inline-block;
+  max-width:100%;
   padding:13px 20px;
   border-radius:999px;
   background:linear-gradient(180deg, #ffffff 0%, #fff7ef 100%);
@@ -582,6 +621,8 @@ p,
   color:inherit;
   text-decoration:none;
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  white-space:normal;
+  word-break:break-word;
 }
 
 .btn:hover{
@@ -598,6 +639,7 @@ p,
   border:1px solid rgba(201,164,106,.15);
   padding:24px;
   box-shadow:0 12px 34px rgba(177,146,121,.10);
+  max-width:100%;
 }
 
 .softCard{
@@ -612,6 +654,7 @@ p,
 
 .section{
   padding:50px 0;
+  overflow:hidden;
 }
 
 .section h2{
@@ -620,6 +663,7 @@ p,
   text-align:center;
   color:var(--text);
   position:relative;
+  padding:0 10px;
 }
 
 .section h2::after{
@@ -639,6 +683,7 @@ p,
   min-height:620px;
   margin:18px auto 0;
   padding:10px 0 0;
+  overflow:hidden;
 }
 
 .agendaFlow__line{
@@ -689,6 +734,7 @@ p,
   align-items:center;
   gap:14px;
   width:min(42%, 320px);
+  max-width:100%;
 }
 
 .agendaStop--right{
@@ -704,6 +750,7 @@ p,
 .agendaStop__image{
   width:78px;
   height:78px;
+  flex:0 0 auto;
   object-fit:contain;
   filter:brightness(1.03) saturate(1.03);
   opacity:.95;
@@ -783,7 +830,10 @@ p,
 .locationButtons .btn{
   text-align:center;
   line-height:1.3;
+  max-width:100%;
 }
+
+/* MAPS */
 
 .mapsStack{
   display:flex;
@@ -803,8 +853,6 @@ p,
   color:#4a312b;
   text-align:left;
 }
-
-/* MAP */
 
 .twoCol{
   display:grid;
@@ -857,6 +905,7 @@ p,
   justify-content:center;
   align-items:center;
   background:transparent;
+  overflow:hidden;
 }
 
 .footerChurch{
@@ -959,8 +1008,8 @@ p,
   }
 
   .videoHint{
-    left:10vw;
-    bottom:16vh;
+    left:14vw;
+    bottom:20vh;
     font-size:clamp(2.6rem, 6vw, 3.6rem);
   }
 }
@@ -977,6 +1026,12 @@ p,
 
   .scriptTitle{
     font-size:clamp(2.55rem, 10vw, 3.9rem);
+    line-height:.95;
+    padding:0 10px;
+  }
+
+  .scriptMeta{
+    padding:0 10px;
   }
 
   .marquee::before,
@@ -1128,10 +1183,10 @@ p,
   }
 
   .videoHint{
-    left:12vw;
-    bottom:14vh;
-    font-size:clamp(2.1rem, 9vw, 3rem);
-    line-height:1.1;
+    left:17vw;
+    bottom:18vh;
+    font-size:clamp(2.15rem, 9vw, 3rem);
+    line-height:1.05;
   }
 }
 
@@ -1158,8 +1213,8 @@ p,
   }
 
   .videoHint{
-    left:12vw;
-    bottom:13vh;
-    font-size:2.15rem;
+    left:18vw;
+    bottom:17vh;
+    font-size:2.05rem;
   }
 }
