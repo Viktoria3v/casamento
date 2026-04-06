@@ -90,8 +90,8 @@ img{
 
 .videoHint{
   position:absolute;
-  bottom:12vh;
-  left:4vw;
+  bottom:18vh;
+  left:10vw;
 
   font-family:"Great Vibes", cursive;
   font-size:clamp(3rem, 4.8vw, 4.3rem);
