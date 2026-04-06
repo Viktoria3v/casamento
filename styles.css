@@ -181,11 +181,15 @@ body.invite-open main{
 .marquee{
   position:relative;
   overflow:hidden;
-  height:auto;
-  min-height:0;
-  display:flex;
-  align-items:flex-start;
-  padding-bottom:4px;
+  width:100%;
+}
+
+*{
+  max-width:100%;
+}
+
+html, body{
+  overflow-x:hidden;
 }
 
 .marquee::before,
@@ -226,9 +230,8 @@ body.invite-open main{
 .marqueeTrack{
   display:flex;
   gap:42px;
+  padding:0;
   will-change:transform;
-  align-items:flex-start;
-  padding:0 14px;
 }
 
 .marqueeTrack img{
