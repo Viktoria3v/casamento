@@ -294,13 +294,13 @@ document.addEventListener("DOMContentLoaded", () => {
   video.addEventListener("error", unlockSite);
 
   if (window.AOS) {
-    AOS.init({
-      duration: 900,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 80,
-      mirror: false
-    });
+AOS.init({
+  duration: 1600,
+  easing: "ease-out-cubic",
+  once: true,
+  offset: 30,
+  delay: 60
+});
   }
 
   setupAgendaPath();
