@@ -64,13 +64,22 @@ img{
 
 .introVideo{
   position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  top:50%;
+  left:50%;
+  width:auto;
+  height:auto;
+
+  max-width:100vw;
+  max-height:100vh;
+
+  transform:translate(-50%, -50%);
+  object-fit:contain;
+  object-position:center;
+
   z-index:1;
   pointer-events:none;
   background:#000;
+  display:block;
 }
 
 .introTapLayer{
@@ -1096,6 +1105,10 @@ p,
 
   .footerChurch{
     width:min(620px, 96vw);
+  }
+
+  .introVideo{
+    max-height:100dvh;
   }
 }
 
