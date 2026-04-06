@@ -122,8 +122,8 @@ main,
 
 .videoHint{
   position:absolute;
-  left:13vw;
-  bottom:22vh;
+  left:50%;
+  bottom:18vh;
   display:block;
   font-family:"Great Vibes", cursive;
   font-size:clamp(3rem, 4.8vw, 4.3rem);
@@ -136,16 +136,18 @@ main,
     0 6px 24px rgba(0,0,0,.22);
   -webkit-text-stroke:.25px rgba(255,247,234,.5);
   opacity:1;
-  transform:translateY(0);
+  transform:translateX(-50%);
   transition:opacity .25s ease, transform .25s ease;
   pointer-events:none;
   padding:0 .2em;
   user-select:none;
+  text-align:center;
+  white-space:nowrap;
 }
 
 .introOverlay.is-playing .videoHint{
   opacity:0;
-  transform:translateY(8px);
+  transform:translateX(-50%) translateY(8px);
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -261,7 +263,7 @@ body.invite-open main{
 
 .marqueeTrack{
   display:flex;
-  gap:42px;
+  gap:38px;
   will-change:transform;
   align-items:flex-start;
   padding:0;
@@ -271,7 +273,7 @@ body.invite-open main{
 
 .marqueeTrack img{
   flex:0 0 auto;
-  height:min(96vh, 1220px);
+  height:min(100vh, 1280px);
   width:auto;
   border-radius:34px;
   box-shadow:
@@ -354,22 +356,22 @@ body.invite-open main{
   display:flex;
   flex-direction:column;
   align-items:center;
-  margin:14px 0 2px;
-  gap:2px;
+  margin:12px 0 2px;
+  gap:0;
   padding:0 10px;
 }
 
 .musicNote{
   font-size:1.02rem;
-  line-height:1.35;
+  line-height:1.25;
   color:var(--muted);
   text-align:center;
-  margin:0 0 1px;
+  margin:0 0 0;
   font-family:"Cormorant Garamond", serif;
 }
 
 .scrollHint{
-  margin:0;
+  margin:2px 0 0;
   text-align:center;
   font-size:1rem;
   line-height:1.2;
@@ -394,7 +396,7 @@ body.invite-open main{
   min-width:58px;
   height:42px;
   padding:0 16px;
-  margin-top:0;
+  margin-top:4px;
   background:#ffffff !important;
   background-image:none !important;
   border:1px solid rgba(58,42,36,.22);
@@ -967,11 +969,11 @@ p,
   }
 
   .marqueeTrack{
-    gap:24px;
+    gap:22px;
   }
 
   .marqueeTrack img{
-    height:74vh;
+    height:78vh;
     border-radius:26px;
   }
 
@@ -1008,8 +1010,7 @@ p,
   }
 
   .videoHint{
-    left:14vw;
-    bottom:20vh;
+    bottom:18vh;
     font-size:clamp(2.6rem, 6vw, 3.6rem);
   }
 }
@@ -1040,11 +1041,11 @@ p,
   }
 
   .marqueeTrack{
-    gap:16px;
+    gap:14px;
   }
 
   .marqueeTrack img{
-    height:58vh;
+    height:64vh;
     border-radius:20px;
     box-shadow:
       0 18px 38px rgba(177,146,121,.12),
@@ -1096,13 +1097,15 @@ p,
   }
 
   .musicControl{
-    margin-top:12px;
+    margin-top:10px;
     margin-bottom:0;
-    gap:2px;
+    gap:0;
   }
 
   .musicNote{
     font-size:.95rem;
+    line-height:1.2;
+    margin-bottom:0;
   }
 
   .scrollHint{
@@ -1113,6 +1116,7 @@ p,
     min-width:54px;
     height:40px;
     padding:0 14px;
+    margin-top:2px;
   }
 
   .agendaFlow{
@@ -1183,10 +1187,15 @@ p,
   }
 
   .videoHint{
-    left:17vw;
-    bottom:18vh;
+    left:50%;
+    bottom:17vh;
     font-size:clamp(2.15rem, 9vw, 3rem);
     line-height:1.05;
+    transform:translateX(-50%);
+  }
+
+  .introOverlay.is-playing .videoHint{
+    transform:translateX(-50%) translateY(8px);
   }
 }
 
@@ -1209,12 +1218,11 @@ p,
   }
 
   .marqueeTrack img{
-    height:52vh;
+    height:60vh;
   }
 
   .videoHint{
-    left:18vw;
-    bottom:17vh;
+    bottom:16vh;
     font-size:2.05rem;
   }
 }
