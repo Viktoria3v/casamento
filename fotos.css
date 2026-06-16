@@ -1,0 +1,220 @@
+/* Página de fotos dos convidados */
+.photosBody {
+  overflow-y: auto;
+}
+
+.photosPage {
+  opacity: 1;
+  transform: none;
+}
+
+.photosHeroSection {
+  padding-bottom: 34px;
+}
+
+.photosHero {
+  text-align: center;
+}
+
+.photosBackLink {
+  display: inline-block;
+  margin: 0 0 24px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .9rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.photosBackLink:hover {
+  color: var(--text);
+}
+
+.photosMeta {
+  margin: 0 0 18px;
+}
+
+.photosTitle {
+  font-size: clamp(3rem, 8vw, 6.4rem);
+}
+
+.photosIntro {
+  margin-top: 24px;
+}
+
+.photosUploadSection {
+  padding-top: 18px;
+  padding-bottom: 36px;
+}
+
+.photosUploadCard {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.photoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.photoField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.photoField label {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .82rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.photoField input,
+.photoField textarea {
+  width: 100%;
+  border: 1px solid rgba(201, 164, 106, .28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .78);
+  color: var(--text);
+  padding: 14px 16px;
+  font: inherit;
+  font-size: 1.14rem;
+  outline: none;
+  box-shadow: 0 8px 22px rgba(177, 146, 121, .05);
+}
+
+.photoField textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.photoField input:focus,
+.photoField textarea:focus {
+  border-color: rgba(201, 164, 106, .62);
+}
+
+.photoField small {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.photoSubmitButton {
+  width: 100%;
+  cursor: pointer;
+  font-size: .96rem;
+}
+
+.photoSubmitButton:disabled {
+  cursor: not-allowed;
+  opacity: .58;
+}
+
+.uploadMessage {
+  min-height: 1.4em;
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.4;
+}
+
+.photosGallerySection {
+  padding-top: 44px;
+}
+
+.photosGalleryIntro {
+  margin-bottom: 28px;
+}
+
+.photoGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.galleryItem {
+  overflow: hidden;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid rgba(201, 164, 106, .13);
+  box-shadow: 0 18px 44px rgba(177, 146, 121, .08), 0 4px 14px rgba(177, 146, 121, .04);
+}
+
+.galleryItem img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: rgba(201, 164, 106, .08);
+}
+
+.galleryText {
+  padding: 16px 16px 18px;
+}
+
+.galleryText strong {
+  display: block;
+  margin-bottom: 8px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .82rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.galleryText p {
+  margin: 0;
+  font-size: 1.06rem;
+  line-height: 1.48;
+}
+
+.galleryEmpty,
+.galleryError {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+}
+
+.loadMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.loadMoreButton {
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .photosHeroSection {
+    padding-top: 42px;
+  }
+
+  .photosTitle {
+    font-size: clamp(2.7rem, 12vw, 4.2rem);
+  }
+
+  .photosUploadCard {
+    padding: 22px 18px;
+  }
+
+  .photoGallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .galleryItem {
+    border-radius: 20px;
+  }
+
+  .galleryText {
+    padding: 12px 12px 14px;
+  }
+
+  .galleryText p {
+    font-size: .98rem;
+  }
+}
