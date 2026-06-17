@@ -1,151 +1,312 @@
-<!doctype html>
-<html lang="pt">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fotos — Dmytro & Viktoriya</title>
+const API_BASE_URL = "https://casamento-fotos.vika3v.workers.dev/";
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+const PHOTOS_PER_PAGE = 30;
+const MAX_ORIGINAL_FILE_BYTES = 25 * 1024 * 1024;
+const MAX_COMPRESSED_FILE_BYTES = 3 * 1024 * 1024;
+const MAX_IMAGE_WIDTH = 1600;
+const IMAGE_QUALITY = 0.78;
 
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="fotos.css">
-</head>
+const form = document.getElementById("photoForm");
+const gallery = document.getElementById("gallery");
+const uploadMessage = document.getElementById("uploadMessage");
+const uploadButton = document.getElementById("uploadButton");
+const loadMoreButton = document.getElementById("loadMoreButton");
 
-<body class="photosBody invite-open">
-  <main class="photosPage">
+const guestNameInput = document.getElementById("guestName");
+const captionInput = document.getElementById("caption");
+const captionCount = document.getElementById("captionCount");
+const photoFileInput = document.getElementById("photoFile");
 
-    <section class="section photosHeroSection">
-      <div class="wrap narrowWrap photosHero">
-        <a class="photosBackLink" href="index.html">
-          ← Voltar ao convite
-          <span class="uaText">← Повернутися до запрошення</span>
-        </a>
+let currentOffset = 0;
+let isLoading = false;
 
-        <p class="scriptMeta photosMeta">
-          20 de junho de 2026
-          <span class="uaText">20 червня 2026</span>
+if (captionInput && captionCount) {
+  captionInput.addEventListener("input", () => {
+    captionCount.textContent = captionInput.value.length;
+  });
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const guestName = guestNameInput.value.trim();
+  const caption = captionInput.value.trim();
+  const originalFile = photoFileInput.files[0];
+
+  if (!originalFile) {
+    showMessage("Escolhe uma fotografia. / Обери фотографію.", "error");
+    return;
+  }
+
+  if (!originalFile.type.startsWith("image/")) {
+    showMessage(
+      "O ficheiro escolhido não é uma imagem. / Обраний файл не є фотографією.",
+      "error"
+    );
+    return;
+  }
+
+  if (originalFile.size > MAX_ORIGINAL_FILE_BYTES) {
+    showMessage(
+      "A fotografia é demasiado pesada. Escolhe uma imagem mais leve. / Фотографія завелика. Обери менший файл.",
+      "error"
+    );
+    return;
+  }
+
+  setUploadingState(true);
+  showMessage("A preparar a fotografia... / Підготовка фотографії...", "info");
+
+  try {
+    const compressedFile = await compressImage(
+      originalFile,
+      MAX_IMAGE_WIDTH,
+      IMAGE_QUALITY
+    );
+
+    if (compressedFile.size > MAX_COMPRESSED_FILE_BYTES) {
+      showMessage(
+        "A fotografia continua demasiado pesada depois da redução. Escolhe outra imagem. / Фотографія все ще завелика після зменшення. Обери інше зображення.",
+        "error"
+      );
+      setUploadingState(false);
+      return;
+    }
+
+    showMessage("A enviar fotografia... / Завантаження фотографії...", "info");
+
+    const formData = new FormData();
+    formData.append("guestName", guestName);
+    formData.append("caption", caption);
+    formData.append("photo", compressedFile);
+
+    const response = await fetch(`${API_BASE_URL}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json().catch(() => null);
+
+    if (!response.ok) {
+      const errorMessage =
+        result?.error ||
+        "Não foi possível enviar a fotografia. / Не вдалося надіслати фотографію.";
+      throw new Error(errorMessage);
+    }
+
+    form.reset();
+
+    if (captionCount) {
+      captionCount.textContent = "0";
+    }
+
+    showMessage(
+      "Fotografia enviada! Já está disponível na galeria. / Фото надіслано! Воно вже доступне в галереї.",
+      "success"
+    );
+
+    resetGallery();
+    await loadPhotos();
+  } catch (error) {
+    showMessage(
+      error.message ||
+        "Não foi possível enviar a fotografia. / Не вдалося надіслати фотографію.",
+      "error"
+    );
+  } finally {
+    setUploadingState(false);
+  }
+});
+
+if (loadMoreButton) {
+  loadMoreButton.addEventListener("click", loadPhotos);
+}
+
+async function loadPhotos() {
+  if (isLoading) return;
+
+  isLoading = true;
+
+  if (loadMoreButton) {
+    loadMoreButton.disabled = true;
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/photos?limit=${PHOTOS_PER_PAGE}&offset=${currentOffset}`
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result?.error ||
+          "Não foi possível carregar a galeria. / Не вдалося завантажити галерею."
+      );
+    }
+
+    const photos = result.photos || [];
+
+    if (currentOffset === 0 && photos.length === 0) {
+      gallery.innerHTML = `
+        <p class="emptyGalleryMessage">
+          Ainda não há fotografias na galeria.
+          <span class="uaText">У галереї ще немає фотографій.</span>
         </p>
+      `;
+    } else {
+      const emptyMessage = gallery.querySelector(".emptyGalleryMessage");
 
-        <h1 class="scriptTitle photosTitle">
-          Fotos
-          <span class="uaText">Фото</span>
-        </h1>
+      if (emptyMessage) {
+        emptyMessage.remove();
+      }
 
-        <p class="sectionIntro photosIntro">
-          Ajuda-nos a guardar este dia também pelos teus olhos. Partilha uma fotografia,
-          deixa uma legenda se quiseres e ajuda-nos a guardar uma memória deste dia.
-          <span class="uaText">
-            Допоможи нам зберегти цей день також твоїми очима. Поділися фотографією,
-            за бажанням залиш підпис і допоможи нам зберегти спогад про цей день.
-          </span>
+      photos.forEach((photo) => {
+        gallery.appendChild(createPhotoCard(photo));
+      });
+    }
+
+    currentOffset += photos.length;
+
+    if (loadMoreButton) {
+      loadMoreButton.hidden = !result.hasMore;
+      loadMoreButton.disabled = false;
+    }
+  } catch (error) {
+    if (currentOffset === 0) {
+      gallery.innerHTML = `
+        <p class="emptyGalleryMessage">
+          Não foi possível carregar a galeria.
+          <span class="uaText">Не вдалося завантажити галерею.</span>
         </p>
-      </div>
-    </section>
+      `;
+    }
 
-    <section class="section photosUploadSection">
-      <div class="wrap narrowWrap">
-        <div class="card photosUploadCard">
+    showMessage(
+      error.message ||
+        "Não foi possível carregar a galeria. / Не вдалося завантажити галерею.",
+      "error"
+    );
+  } finally {
+    isLoading = false;
 
-          <form id="photoForm" class="photoForm">
+    if (loadMoreButton) {
+      loadMoreButton.disabled = false;
+    }
+  }
+}
 
-            <div class="photoField">
-              <label for="guestName">
-                O teu nome
-                <span class="uaText">Твоє ім’я</span>
-              </label>
+function createPhotoCard(photo) {
+  const card = document.createElement("article");
+  card.className = "galleryItem";
 
-              <input
-                id="guestName"
-                name="guestName"
-                type="text"
-                maxlength="80"
-                autocomplete="name"
-                placeholder="Ex.: Maria / напр.: Марія (opcional / необов’язково)"
-              >
-            </div>
+  const image = document.createElement("img");
+  image.src = photo.imageUrl;
+  image.alt = photo.caption || "Fotografia do casamento";
+  image.loading = "lazy";
 
-            <div class="photoField">
-              <label for="caption">
-                Legenda
-                <span class="uaText">Підпис</span>
-              </label>
+  card.appendChild(image);
 
-              <textarea
-                id="caption"
-                name="caption"
-                rows="4"
-                maxlength="300"
-                placeholder="Escreve uma memória, uma frase ou uma dedicatória... / Напиши спогад, фразу або побажання... (opcional / необов’язково)"
-              ></textarea>
+  if (photo.guestName || photo.caption) {
+    const text = document.createElement("div");
+    text.className = "galleryText";
 
-              <small><span id="captionCount">0</span>/300</small>
-            </div>
+    if (photo.guestName) {
+      const name = document.createElement("strong");
+      name.textContent = photo.guestName;
+      text.appendChild(name);
+    }
 
-            <div class="photoField">
-              <label for="photoFile">
-                Fotografia
-                <span class="uaText">Фотографія</span>
-              </label>
+    if (photo.caption) {
+      const caption = document.createElement("p");
+      caption.textContent = photo.caption;
+      text.appendChild(caption);
+    }
 
-              <input
-                id="photoFile"
-                name="photoFile"
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
-                required
-              >
+    card.appendChild(text);
+  }
 
-              <small>
-                A foto será reduzida automaticamente antes do envio.
-                <span class="uaText">
-                  Фотографію буде автоматично зменшено перед завантаженням.
-                </span>
-              </small>
-            </div>
+  return card;
+}
 
-            <button id="uploadButton" class="btn photoSubmitButton" type="submit">
-              Enviar foto
-              <span class="uaText buttonUa">Надіслати фото</span>
-            </button>
+function resetGallery() {
+  currentOffset = 0;
+  gallery.innerHTML = "";
 
-            <p id="uploadMessage" class="uploadMessage" role="status" aria-live="polite"></p>
-          </form>
+  if (loadMoreButton) {
+    loadMoreButton.hidden = true;
+  }
+}
 
-        </div>
-      </div>
-    </section>
+async function compressImage(file, maxWidth, quality) {
+  const image = await loadImage(file);
 
-    <section class="section photosGallerySection">
-      <div class="wrap">
+  const scale = Math.min(1, maxWidth / image.width);
+  const canvas = document.createElement("canvas");
 
-        <h2>
-          Galeria dos convidados
-          <span class="uaText">Галерея гостей</span>
-        </h2>
+  canvas.width = Math.round(image.width * scale);
+  canvas.height = Math.round(image.height * scale);
 
-        <p class="sectionIntro photosGalleryIntro">
-          As fotografias aparecem aqui logo depois de serem enviadas.
-          <span class="uaText">
-            Фотографії з’являться тут одразу після завантаження.
-          </span>
-        </p>
+  const context = canvas.getContext("2d");
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-        <div id="gallery" class="photoGallery" aria-live="polite"></div>
+  const blob = await new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (result) => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(new Error("Erro ao reduzir a fotografia. / Помилка під час зменшення фотографії."));
+        }
+      },
+      "image/jpeg",
+      quality
+    );
+  });
 
-        <div class="loadMoreWrap">
-          <button id="loadMoreButton" class="btn loadMoreButton" type="button" hidden>
-            Ver mais fotos
-            <span class="uaText buttonUa">Показати більше фото</span>
-          </button>
-        </div>
+  return new File([blob], makeJpegFileName(file.name), {
+    type: "image/jpeg",
+  });
+}
 
-      </div>
-    </section>
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    const objectUrl = URL.createObjectURL(file);
 
-  </main>
+    image.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(image);
+    };
 
-  <script src="fotos.js" defer></script>
-</body>
-</html>
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(
+        new Error(
+          "Não foi possível ler esta fotografia. Tenta usar JPG, PNG ou WebP. / Не вдалося прочитати цю фотографію. Спробуй JPG, PNG або WebP."
+        )
+      );
+    };
+
+    image.src = objectUrl;
+  });
+}
+
+function makeJpegFileName(fileName) {
+  const cleanName = fileName.replace(/\.[^/.]+$/, "");
+  return `${cleanName || "foto-casamento"}.jpg`;
+}
+
+function showMessage(message, type = "info") {
+  uploadMessage.textContent = message;
+  uploadMessage.dataset.type = type;
+}
+
+function setUploadingState(isUploading) {
+  uploadButton.disabled = isUploading;
+  uploadButton.textContent = isUploading
+    ? "A enviar... / Завантаження..."
+    : "Enviar foto / Надіслати фото";
+}
+
+loadPhotos();
