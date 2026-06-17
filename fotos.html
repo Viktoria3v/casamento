@@ -45,7 +45,19 @@
 
             <div class="photoField">
               <label for="photoFile">Fotografia</label>
-              <input id="photoFile" name="photoFile" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" required>
+              <div class="customFileWrapper">
+  <label class="customFileButton" for="photoFile">Escolher fotografia</label>
+  <span id="fileName" class="fileNameText">Nenhuma fotografia escolhida</span>
+
+  <input
+    id="photoFile"
+    name="photoFile"
+    class="visuallyHiddenFile"
+    type="file"
+    accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+    required
+  >
+</div>
               <small>A foto será reduzida automaticamente antes do envio.</small>
             </div>
 
