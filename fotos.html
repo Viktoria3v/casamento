@@ -12,18 +12,34 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="fotos.css">
 </head>
+
 <body class="photosBody invite-open">
   <main class="photosPage">
+
     <section class="section photosHeroSection">
       <div class="wrap narrowWrap photosHero">
-        <a class="photosBackLink" href="index.html">← Voltar ao convite</a>
+        <a class="photosBackLink" href="index.html">
+          ← Voltar ao convite
+          <span class="uaText">← Повернутися до запрошення</span>
+        </a>
 
-        <p class="scriptMeta photosMeta">20 de junho de 2026</p>
-        <h1 class="scriptTitle photosTitle">Fotos do nosso dia</h1>
+        <p class="scriptMeta photosMeta">
+          20 de junho de 2026
+          <span class="uaText">20 червня 2026</span>
+        </p>
+
+        <h1 class="scriptTitle photosTitle">
+          Fotos do nosso dia
+          <span class="uaText">Фото нашого дня</span>
+        </h1>
 
         <p class="sectionIntro photosIntro">
           Ajuda-nos a guardar este dia também pelos teus olhos. Partilha uma fotografia,
           deixa uma legenda se quiseres e ajuda-nos a guardar uma memória deste dia.
+          <span class="uaText">
+            Допоможи нам зберегти цей день також твоїми очима. Поділися фотографією,
+            за бажанням залиш підпис і допоможи нам зберегти спогад про цей день.
+          </span>
         </p>
       </div>
     </section>
@@ -31,48 +47,89 @@
     <section class="section photosUploadSection">
       <div class="wrap narrowWrap">
         <div class="card photosUploadCard">
+
           <form id="photoForm" class="photoForm">
+
             <div class="photoField">
-              <label for="guestName">O teu nome</label>
-              <input id="guestName" name="guestName" type="text" maxlength="80" autocomplete="name" placeholder="Ex.: Maria (opcional)">
+              <label for="guestName">
+                O teu nome
+                <span class="uaText">Твоє ім’я</span>
+              </label>
+
+              <input
+                id="guestName"
+                name="guestName"
+                type="text"
+                maxlength="80"
+                autocomplete="name"
+                placeholder="Ex.: Maria / напр.: Марія (opcional / необов’язково)"
+              >
             </div>
 
             <div class="photoField">
-              <label for="caption">Legenda</label>
-              <textarea id="caption" name="caption" rows="4" maxlength="300" placeholder="Escreve uma memória, uma frase ou uma dedicatória... (opcional)"></textarea>
+              <label for="caption">
+                Legenda
+                <span class="uaText">Підпис</span>
+              </label>
+
+              <textarea
+                id="caption"
+                name="caption"
+                rows="4"
+                maxlength="300"
+                placeholder="Escreve uma memória, uma frase ou uma dedicatória... / Напиши спогад, фразу або побажання... (opcional / необов’язково)"
+              ></textarea>
+
               <small><span id="captionCount">0</span>/300</small>
             </div>
 
             <div class="photoField">
-              <label for="photoFile">Fotografia</label>
-              <div class="customFileWrapper">
-  <label class="customFileButton" for="photoFile">Escolher fotografia</label>
-  <span id="fileName" class="fileNameText">Nenhuma fotografia escolhida</span>
+              <label for="photoFile">
+                Fotografia
+                <span class="uaText">Фотографія</span>
+              </label>
 
-  <input
-    id="photoFile"
-    name="photoFile"
-    class="visuallyHiddenFile"
-    type="file"
-    accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
-    required
-  >
-</div>
-              <small>A foto será reduzida automaticamente antes do envio.</small>
+              <input
+                id="photoFile"
+                name="photoFile"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
+                required
+              >
+
+              <small>
+                A foto será reduzida automaticamente antes do envio.
+                <span class="uaText">
+                  Фотографію буде автоматично зменшено перед завантаженням.
+                </span>
+              </small>
             </div>
 
-            <button id="uploadButton" class="btn photoSubmitButton" type="submit">Enviar foto</button>
+            <button id="uploadButton" class="btn photoSubmitButton" type="submit">
+              Enviar foto
+              <span class="uaText buttonUa">Надіслати фото</span>
+            </button>
+
             <p id="uploadMessage" class="uploadMessage" role="status" aria-live="polite"></p>
           </form>
+
         </div>
       </div>
     </section>
 
     <section class="section photosGallerySection">
       <div class="wrap">
-        <h2>Galeria dos convidados</h2>
+
+        <h2>
+          Galeria dos convidados
+          <span class="uaText">Галерея гостей</span>
+        </h2>
+
         <p class="sectionIntro photosGalleryIntro">
           As fotografias aparecem aqui logo depois de serem enviadas.
+          <span class="uaText">
+            Фотографії з’являться тут одразу після завантаження.
+          </span>
         </p>
 
         <div id="gallery" class="photoGallery" aria-live="polite"></div>
@@ -80,10 +137,13 @@
         <div class="loadMoreWrap">
           <button id="loadMoreButton" class="btn loadMoreButton" type="button" hidden>
             Ver mais fotos
+            <span class="uaText buttonUa">Показати більше фото</span>
           </button>
         </div>
+
       </div>
     </section>
+
   </main>
 
   <script src="fotos.js" defer></script>
