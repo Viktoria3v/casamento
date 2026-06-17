@@ -15,6 +15,17 @@ const uploadMessage = document.getElementById("uploadMessage");
 const gallery = document.getElementById("gallery");
 const loadMoreButton = document.getElementById("loadMoreButton");
 
+const photoFileInput = document.getElementById("photoFile");
+const fileNameText = document.getElementById("fileName");
+
+if (photoFileInput && fileNameText) {
+  photoFileInput.addEventListener("change", () => {
+    fileNameText.textContent = photoFileInput.files[0]
+      ? photoFileInput.files[0].name
+      : "Nenhuma fotografia escolhida";
+  });
+}
+
 let currentOffset = 0;
 let isLoadingGallery = false;
 
