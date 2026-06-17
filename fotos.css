@@ -254,4 +254,23 @@
   .galleryText p {
     font-size: .98rem;
   }
+  .uaText {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9em;
+  opacity: 0.72;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.buttonUa {
+  margin-top: 3px;
+  font-size: 0.82em;
+}
+
+label .uaText {
+  margin-top: 3px;
+  font-size: 0.85em;
+}
 }
