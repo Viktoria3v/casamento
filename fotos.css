@@ -251,7 +251,8 @@
     padding: 12px 12px 14px;
   }
 
-  .galleryText p {
+
+}  .galleryText p {
     font-size: .98rem;
   }
   .uaText {
@@ -272,5 +273,4 @@
 label .uaText {
   margin-top: 3px;
   font-size: 0.85em;
-}
 }
