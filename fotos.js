@@ -1,6 +1,5 @@
-// Troca este URL pelo URL do teu Cloudflare Worker depois do deploy.
-// Exemplo: https://casamento-fotos.viktoria3v.workers.dev
-const API_BASE_URL = "COLOCAR_AQUI_O_URL_DO_WORKER";
+
+const API_BASE_URL = "https://casamento-fotos.vika3v.workers.dev/";
 
 const PHOTOS_PER_PAGE = 30;
 const MAX_IMAGE_SIZE_AFTER_COMPRESSION = 1.8 * 1024 * 1024; // 1.8 MB
