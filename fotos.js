@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://casamento-fotos.vika3v.workers.dev/";
+const API_BASE_URL = "https://casamento-fotos.vika3v.workers.dev";
 
 const PHOTOS_PER_PAGE = 30;
 const MAX_ORIGINAL_FILE_BYTES = 25 * 1024 * 1024;
